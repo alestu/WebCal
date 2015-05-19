@@ -1,0 +1,52 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-create {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+
+#tfield
+{
+margin-top:5px;
+margin-bottom:5px;
+
+	
+}
+
+
+#street
+{
+	display:block;
+	width:200px;
+	float:left;
+	margin-right:5px;
+}
+
+#number{
+	
+	width:95px;
+}
+
+#city
+{
+	
+	width:200px;
+	
+	
+}
+
+#zipcode
+{	display:block;
+	width:95px;
+	float:left;
+	margin-right:5px;
+	
+	
+}
+
