@@ -6,37 +6,139 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 
+
+
+
 /*Singleton DatabaseController */
 public class DatabaseController {
-	static String connectionUrl = "jdbc:mysql://localhost/";
-	static String connectionUser = "root";
-	static String connectionPassword = "";
-	static String database = "webcalendar";
-	static String webcal_table = "ConnectorJ/webcal_table.sql";
-	static String webcal_db = "ConnectorJ/webcal_db.sql";
-	static String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
+	 String connectionUrl = "jdbc:mysql://localhost/";
+	 String connectionUser = "root";
+	 String connectionPassword = "";
+	 String database = "webcalendar";
+	 String webcal_table = "ConnectorJ/webcal_table.sql";
+	 String webcal_db = "ConnectorJ/webcal_db.sql";
+	 String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
+	 Connection conn;
+	 Statement stmt; 
+	
+	
 
-	private static DatabaseController instance;
-
-	private DatabaseController() {
-
+	public DatabaseController()
+	{
+		LoadDatabase();
+		//conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
 	}
 
-	/* Thread-Safe Singleton */
-	public static synchronized DatabaseController getInstance() {
-		if (DatabaseController.instance == null) {
-			DatabaseController.instance = new DatabaseController();
+
+	
+	
+	/*Querys*/
+	public  boolean checkEmailAndPassword(String email,String password_) 
+	{
+		try
+		{
+		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";		
+		
+		//Statement stmt = conn.createStatement();
+		
+		if (((Object)conn).equals(null)) {
+			System.out.println("conn ist null.");
 		}
-		return DatabaseController.instance;
-
+		if (((Object)stmt).equals(null)) {
+			System.out.println("stmt ist null.");
+		}
+		
+		ResultSet res = stmt.executeQuery(sqlString);
+		if(!res.first())
+		{
+			stmt.close();
+			return false;
+			
+		}
+		else
+		{
+			stmt.close();
+			return true;
+		}
+		
+		
+		
+		}
+		catch(SQLException ex)
+		{
+			System.out.println("ExceptionMessage: " +ex);
+		}
+		return false;
 	}
-
-	public static void LoadDatabase() {
+	
+	public  boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)
+	{
+		try
+		{
+			int address_id;			
+			String sqlString = "insert into address (street,street_nr,postcode,city) values('"+street+"','"+street_nr+"',"+postcode+",'"+city+"');";
+			System.out.println("address created..." + String.valueOf(stmt.executeUpdate(sqlString)));
+			sqlString = "select address_id from address where street = "+"'"+street+"' and street_nr = '"+street_nr+ "' and postcode = "+postcode+" and city = '"+city+"';";
+			System.out.println(sqlString);
+			ResultSet res = stmt.executeQuery(sqlString);
+			if(res.next())
+			{
+				address_id = res.getInt(1);
+				System.out.println("Fetching address_id..");
+				sqlString = "insert into users (email,password_,first_name,last_name,address_id) values ('"+email+"','"+password_+"','"+first_name+"','"+last_name+"',"+address_id+");";
+				System.out.println(sqlString);
+				System.out.println("User created..."+String.valueOf(stmt.executeUpdate(sqlString)));
+				return true;
+			}
+			else
+			{
+				System.out.println("Failed fetching address_id");
+				return false;
+			}
+			
+			
+		}
+		catch(Exception ex)
+		{return false;
+			
+		}
+		
+		
+		
+	}
+	
+	public  String getFullUsernameByEmail(String email) throws SQLException
+	{
+		try{
+	
+		
+		conn.setCatalog(database);
+		Statement stmt = conn.createStatement();
+		ResultSet res = stmt.executeQuery("select first_name,last_name from users where email = '"+email+"';");
+		res.next();
+		
+		return String.format("%s %s", res.getString(1), res.getString(2)); 
+		
+		
+		}catch(SQLException ex)
+		{
+			
+			
+		}
+		return "";
+		
+	}
+	
+	
+	/*Database Loading and Init */
+	public void LoadDatabase() {
 		LoadDriver();
+		
 		try {
-			Connection conn = DriverManager.getConnection(connectionUrl,
-					connectionUser, connectionPassword);
-			Statement stmt = conn.createStatement();
+			conn = DriverManager.getConnection(connectionUrl,
+					connectionUser, connectionPassword);	
+			
+			stmt = conn.createStatement();
 
 			stmt.execute("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME =\""
 					+ database + "\";");
@@ -45,7 +147,7 @@ public class DatabaseController {
 				InitDatabase(stmt, conn);
 				InitTables(stmt, conn);
 				InitTestData(stmt, conn);
-				
+
 				// Close Statement after Initializing DB and Tables, and set
 				// Catalog to created DB
 				stmt.close();
@@ -53,7 +155,7 @@ public class DatabaseController {
 				stmt = conn.createStatement();
 
 			} else {
-			
+
 				stmt.close();
 				conn.setCatalog(database);
 				System.out.println(database + " successfully loaded.\n");
@@ -70,18 +172,31 @@ public class DatabaseController {
 
 	}
 
-	public static void LoadDriver() {
-
+	public void LoadDriver()
+	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-
 	}
-
-	public static void InitDatabase(Statement stmt, Connection conn)
+	
+	public void ConnectDB() throws SQLException
+	{		
+		try{
+			Connection conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
+	
+		}
+		catch(SQLException ex)
+		{
+			System.err.println("Failed to Connect: "+ex);
+			
+		}
+		
+	}
+	
+	public void InitDatabase(Statement stmt, Connection conn)
 			throws SQLException {
 		try {
 			System.out.println("Executing Script for Database creation..."
@@ -95,7 +210,7 @@ public class DatabaseController {
 
 	}
 
-	public static void InitTables(Statement stmt, Connection conn)
+	public void InitTables(Statement stmt, Connection conn)
 			throws SQLException {
 
 		try {
@@ -110,7 +225,7 @@ public class DatabaseController {
 
 	}
 
-	public static void InitTestData(Statement stmt, Connection conn)
+	public void InitTestData(Statement stmt, Connection conn)
 			throws SQLException {
 		try {
 
@@ -124,7 +239,7 @@ public class DatabaseController {
 
 	}
 
-	public static boolean executeDBScript(String SqlFile, Statement stmt)
+	public boolean executeDBScript(String SqlFile, Statement stmt)
 			throws IOException, SQLException {
 		boolean scriptIsExecuted = false;
 		String s = new String();
