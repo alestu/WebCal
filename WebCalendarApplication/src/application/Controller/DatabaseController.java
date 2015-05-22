@@ -14,6 +14,7 @@ public class DatabaseController {
 	static String database = "webcalendar";
 	static String webcal_table = "ConnectorJ/webcal_table.sql";
 	static String webcal_db = "ConnectorJ/webcal_db.sql";
+	static String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
 
 	private static DatabaseController instance;
 
@@ -43,6 +44,8 @@ public class DatabaseController {
 			if (!stmt.getResultSet().first()) {
 				InitDatabase(stmt, conn);
 				InitTables(stmt, conn);
+				InitTestData(stmt, conn);
+				
 				// Close Statement after Initializing DB and Tables, and set
 				// Catalog to created DB
 				stmt.close();
@@ -50,6 +53,7 @@ public class DatabaseController {
 				stmt = conn.createStatement();
 
 			} else {
+			
 				stmt.close();
 				conn.setCatalog(database);
 				System.out.println(database + " successfully loaded.\n");
@@ -84,7 +88,7 @@ public class DatabaseController {
 					+ String.valueOf(executeDBScript(webcal_db, stmt)));
 
 			stmt.close();
-			
+
 		} catch (IOException ex) {
 			System.out.println(ex);
 		}
@@ -100,6 +104,20 @@ public class DatabaseController {
 			stmt = conn.createStatement();
 			System.out.println("Executing Script for tables... "
 					+ String.valueOf(executeDBScript(webcal_table, stmt)));
+		} catch (IOException ex) {
+			System.out.println(ex);
+		}
+
+	}
+
+	public static void InitTestData(Statement stmt, Connection conn)
+			throws SQLException {
+		try {
+
+			conn.setCatalog(database);
+			stmt = conn.createStatement();
+			System.out.println("Executing Script for Testdata... "
+					+ String.valueOf(executeDBScript(webcal_testdata, stmt)));
 		} catch (IOException ex) {
 			System.out.println(ex);
 		}

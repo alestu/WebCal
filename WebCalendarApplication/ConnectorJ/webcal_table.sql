@@ -6,11 +6,12 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 create table address
 (address_id INT NOT NULL AUTO_INCREMENT,
-  street VARCHAR(40),
+  street VARCHAR(60),
   street_nr VARCHAR(3),
   postcode INT(5) ,
+  city varchar(20),
   PRIMARY KEY (address_id)
-)engine = INNODB;
+);
 
 
 
@@ -23,7 +24,7 @@ create table users (user_id INT NOT NULL AUTO_INCREMENT,
  FOREIGN KEY (address_id) references address(address_id) on delete cascade,
  PRIMARY KEY (user_id),
  UNIQUE INDEX (email)
-)engine = INNODB;
+);
 
 create table event (event_id INT NOT NULL AUTO_INCREMENT,
 title varchar(50) not null,
@@ -36,4 +37,4 @@ category varchar(20),
 primary key ( event_id),
 user_id int,
 foreign key ( user_id) references users ( user_id) on delete cascade
-)engine = INNODB;
+);
