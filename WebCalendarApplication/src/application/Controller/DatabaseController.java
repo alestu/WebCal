@@ -214,7 +214,7 @@ public class DatabaseController {
 	public void ConnectDB() throws SQLException
 	{		
 		try{
-			Connection conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
+			 conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
 	
 		}
 		catch(SQLException ex)
