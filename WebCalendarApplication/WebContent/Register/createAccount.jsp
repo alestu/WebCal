@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/createAccount.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/alerts.css">
 <title>Account erstellen</title>
 </head>
 <body>
@@ -26,10 +27,26 @@
 			<input name="streetnr"  type="text" id="number" class="form-control" placeholder="Nr" required></div>
 			<div id="tfield" ><input name="postcode" type="text" id="zipcode" class="form-control" placeholder="Area Code" required>
 			<input name="city" type="text" id="city" class="form-control" placeholder="City" required></div>
+						
+			<button class="btn btn-lg btn-primary btn-block " type="submit">Create</button>
 			
-			  
+			<%
+					String registered = request.getParameter("reg");						
+					if(registered != null && !registered.isEmpty())
+					{
+						if(registered.compareTo("false")==0)
+						{
+						%><div class="alert alert-danger matop" role="alert"><strong>Ops! Something went wrong, plase try again.</div><%
+						}
+						
+						if(registered.compareTo("alreadyinuse")==0)
+						{
+						%><div class="alert alert-warning matop" role="alert"><strong>Selected Email already in Use. Please try another one.</div><%
+						}
+					}
 			
-			<button class="btn btn-lg btn-primary btn-block "  type="submit">Create</button>
+			%>
+			
 		</form>
 
 	</div>

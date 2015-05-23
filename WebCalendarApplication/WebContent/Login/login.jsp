@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -7,23 +7,19 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css"
+	href="../bootstrap/css/alerts.css">
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/signin.css">
-	<% 
-	
-	if(session.getAttribute("email") == null)
-	{
-		
+<%
+	if (session.getAttribute("email") == null) {
+
+	} else {
+%>
+<jsp:forward page="../Navigationbar/MainMenu.jsp" />
+<%
 	}
-	else
-	{
-		%>		
-		<jsp:forward page="../Navigationbar/MainMenu.jsp"/>
-		<% 	
-		
-	}
-	
-	%>
+%>
 
 
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
@@ -32,7 +28,8 @@
 <body>
 	<div class="container">
 
-		<form class="form-signin" method="post" action="../Navigationbar/MainMenu.jsp">
+		<form class="form-signin" method="post"
+			action="../Navigationbar/MainMenu.jsp">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				name="email" type="email" id="inputEmail" class="form-control"
@@ -43,11 +40,24 @@
 			<div class="checkbox">
 				<label> <input type="checkbox" value="remember-me">
 					Remember me
-				</label> <label class="createAccount"><a href="../Register/createAccount.jsp"><strong>Create
-							an Account</strong></a></label>
+				</label> <label class="createAccount"><a
+					href="../Register/createAccount.jsp"><strong>Create an
+							Account</strong></a></label>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 				in</button>
+
+			<%
+					String registered = request.getParameter("reg");						
+					if(registered != null && !registered.isEmpty())
+					{
+						if(registered.compareTo("true")==0)
+						{
+						%><div class="alert alert-success matop" role="alert"><strong>You have been successfuly registered! Please log in to continue.</div><%
+						}
+					}
+			
+			%>
 		</form>
 
 	</div>

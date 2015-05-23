@@ -39,14 +39,8 @@ public class DatabaseController {
 		{
 		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";		
 		
-		//Statement stmt = conn.createStatement();
+	
 		
-		if (((Object)conn).equals(null)) {
-			System.out.println("conn ist null.");
-		}
-		if (((Object)stmt).equals(null)) {
-			System.out.println("stmt ist null.");
-		}
 		
 		ResultSet res = stmt.executeQuery(sqlString);
 		if(!res.first())
@@ -69,6 +63,41 @@ public class DatabaseController {
 			System.out.println("ExceptionMessage: " +ex);
 		}
 		return false;
+	}
+	
+	public boolean isEmailAlreadyinUse(String email)
+	{
+		try
+		{
+		String sqlString = "select password_ from users where email = '"+ email +"';";		
+		
+		
+	
+		
+		ResultSet res = stmt.executeQuery(sqlString);
+		if(res.first())
+		{
+			stmt.close();
+			return true;
+			
+		}
+		else
+		{
+			stmt.close();
+			return false;
+		}
+		
+		
+		
+		}
+		catch(SQLException ex)
+		{
+			System.out.println("ExceptionMessage: " +ex);
+			return false;
+		}
+		
+		
+		
 	}
 	
 	public  boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)

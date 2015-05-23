@@ -10,6 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="alert alert-danger" role="alert"><strong>Oops! Something went wrong, plase try again. </div>
+<div class="alert alert-danger matop" role="alert"><strong>Oops! Something went wrong, plase try again. </div>
 </body> 
 </html>

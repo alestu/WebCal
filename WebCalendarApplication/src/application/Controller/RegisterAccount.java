@@ -43,13 +43,22 @@ public class RegisterAccount extends HttpServlet {
 		DatabaseController controller = new DatabaseController();
 		
 		
+		if(!controller.isEmailAlreadyinUse(email))
+		{
 		if(controller.RegisterUser(email, password_, first_name, last_name, street, street_nr,Integer.valueOf(postcode),city))
 		{
-			response.sendRedirect("Register/success.jsp");
+			response.sendRedirect("Login/login.jsp?reg=true");
 		}
 		else
 		{
-			response.sendRedirect("Register/error.jsp");
+			
+			response.sendRedirect("Register/createAccount.jsp?reg=false");
+		}
+		}
+		else
+		{
+			response.sendRedirect("Register/createAccount.jsp?reg=alreadyinuse");
+			
 		}
 		
 
