@@ -163,6 +163,7 @@ public class DatabaseController {
 	public void LoadDatabase() {
 		LoadDriver();
 		
+		
 		try {
 			conn = DriverManager.getConnection(connectionUrl,
 					connectionUser, connectionPassword);	
