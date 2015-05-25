@@ -67,21 +67,19 @@ public class DatabaseController
 	{
 		try
 		{
-		String sqlString = "select password_ from users where email = '"+ email +"';";		
-		
-		
-	
-		
+		String sqlString = "select email from users where email = '"+ email +"';";		
+				
 		ResultSet res = stmt.executeQuery(sqlString);
 		if(res.first())
 		{
-			stmt.close();
+			
 			return true;
 			
 		}
 		else
 		{
-			stmt.close();
+			
+			
 			return false;
 		}
 		
@@ -98,13 +96,13 @@ public class DatabaseController
 		
 	}
 	
-	public  boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)
+	public boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)
 	{
 		//Benutzerobobjekt empfangen und aus dem Objekt die einzelnen Werte ziehen.
 		//Ablauf INSERT: Daten lesen, Objekt zusammenbauen ("Objekthülle"), in die DB schreiben
 		//Ablauf SELECT:Daten aus der DB lesen, Objekt zusammenstellen, Objekt freigeben
 		
-		//ToDo: Parameterliste ändern!
+		//ToDo: Parameterliste �ndern!
 		try
 		{
 			int address_id;			
@@ -131,7 +129,8 @@ public class DatabaseController
 			
 		}
 		catch(Exception ex)
-		{return false;
+		{	System.out.println(ex);
+			return false;
 			
 		}
 		
@@ -139,7 +138,7 @@ public class DatabaseController
 		
 	}
 
-	public  String getFullUsernameByEmail(String email) throws SQLException
+	public String getFullUsernameByEmail(String email) throws SQLException
 
 	{
 		try{

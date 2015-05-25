@@ -1,3 +1,4 @@
+<%@page import="java.util.Timer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -43,6 +44,7 @@
 						{
 						%><div class="alert alert-warning matop" role="alert"><strong>Selected Email already in Use. Please try another one.</div><%
 						}
+					
 					}
 			
 			%>

@@ -19,6 +19,17 @@
 <jsp:forward page="../Navigationbar/MainMenu.jsp" />
 <%
 	}
+boolean userNameExist = false;
+String preMail = request.getParameter("user");						
+if(preMail != null && !preMail.isEmpty())
+{
+	
+	userNameExist= true;
+	
+
+}
+
+
 %>
 
 
@@ -33,7 +44,12 @@
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				name="email" type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" required autofocus> <label
+				placeholder="Email address" value="<%
+				if(userNameExist)
+						{
+					out.write(preMail);
+					}else
+						{out.write("");}%>" required autofocus> <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				name="password" type="password" id="inputPassword"
 				class="form-control" placeholder="Password" required>

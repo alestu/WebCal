@@ -47,7 +47,7 @@ public class RegisterAccount extends HttpServlet {
 		{
 		if(controller.RegisterUser(email, password_, first_name, last_name, street, street_nr,Integer.valueOf(postcode),city))
 		{
-			response.sendRedirect("Login/login.jsp?reg=true");
+			response.sendRedirect("Login/login.jsp?reg=true&user="+ email);
 		}
 		else
 		{
