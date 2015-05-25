@@ -7,7 +7,6 @@
 <%
 	String email = "";
 	String password = "";
-		
 
 	if (!request.equals(null)) {
 
@@ -49,24 +48,14 @@
 	type="text/css">
 <link rel="stylesheet" href="../bootstrap/css/bootstrap-datepicker.css"
 	type="text/css">
-	<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.css"
+<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.css"
 	type="text/css">
-<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
-<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.js"></script>
-
-
-
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/bootstrap-clockpicker.min.css">
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/github.min.css">
+
+
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -123,127 +112,67 @@
 										<h4 class="modal-title" id="myModalLabel">Neuer Termin</h4>
 									</div>
 									<div class="modal-body">
-									
-								
-									<div id="multidivcontainer">
-								
-										<div class="title">
-										<label for="title" class="control-label">Titel</label>
-										<input type="text" class="form-control " name="title"
-											placeholder="Titel" required="required"> 
+										<div id="multidivcontainer">
+											<div class="title">
+												<label for="title" class="control-label">Titel</label> <input
+													type="text" class="form-control " name="title"
+													placeholder="Titel" required="required">
+											</div>
+											<div class="place">
+												<label for="ort" class="control-label">Ort</label> <input
+													type="text" class="form-control " name="ort"
+													placeholder="Ort" required="required">
+											</div>
 										</div>
-									
-										<div class="place">	<label for="ort" class="control-label">Ort</label>
-										<input
-											type="text" class="form-control " name="ort" placeholder="Ort"
-											required="required">
+										<label for="begindate" class="control-label">Startzeitpunkt</label>
+										<div id="multidivcontainer">
+											<div class="input-group date begindate" id="datetimepicker2">
+
+												<input readonly type="text" class="form-control" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+											<div class="starttime input-group clockpicker "
+												data-autoclose="true">
+												<input readonly type="text" class="form-control "
+													value="12:00"><span class="input-group-addon">
+													<span class="glyphicon glyphicon-time"></span>
+												</span>
+											</div>
+										</div>
+										<label for="begindate" class="control-label">Endzeitpunkt</label>
+										<div id="multidivcontainer" class="form-group">
+											<div class="input-group date begindate" id="datetimepicker1">
+												<input readonly type="text" class="form-control" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+											<div class="starttime input-group clockpicker "
+												data-autoclose="true">
+												<input readonly type="text" class="form-control "
+													value="13:00"><span class="input-group-addon">
+													<span class="glyphicon glyphicon-time"></span>
+												</span>
+											</div>
+										</div>
+										<label for="kategorie" class="control-label">Kategorie</label>
+										<div id="multidivcontainer">
+											<select class="selectpicker selec"
+												title='Kategorie ausw‰hlen'>
+												<option disabled="disabled" selected="selected"
+													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
+													ausw‰hlen</option>
+												<option data-icon="glyphicon glyphicon-home">Privat</option>
+												<option data-icon="glyphicon glyphicon-briefcase">Geschf‰tlich</option>
+												<option data-icon="glyphicon glyphicon-bookmark">Hobby</option>
+												<option data-icon="glyphicon glyphicon-gift">Geburtstag</option>
+												<option data-icon="glyphicon glyphicon-flag">Feiertag</option>
+												<option data-icon="glyphicon glyphicon-plane">Urlaub</option>
+											</select>
 										</div>
 									</div>
-
-
-
-	<label for="begindate" class="control-label">Startzeitpunkt</label>
-		<div id="multidivcontainer" >
-  
-								 <div class="input-group date begindate" id="datetimepicker2">
-								
-                    <input readonly type="text" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-
-
-
-	
-										<div class="starttime input-group clockpicker "
-											data-autoclose="true">
-											<input readonly type="text" class="form-control " value="12:00"><span
-												class="input-group-addon"> <span
-												class="glyphicon glyphicon-time"></span>
-											</span>
-										</div>
-
-
-
-									
-		</div>
-		<label for="begindate" class="control-label">Endzeitpunkt</label>
-		<div id="multidivcontainer" class="form-group">
-	  
-								 <div class="input-group date begindate" id="datetimepicker1">
-                    <input readonly type="text" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-
-
-
-	
-										<div class="starttime input-group clockpicker "
-											data-autoclose="true">
-											<input readonly type="text" class="form-control " value="13:00"><span
-												class="input-group-addon"> <span
-												class="glyphicon glyphicon-time"></span>
-											</span>
-										</div>
-
-
-
-									
-		</div>
-		
-		<label for="kategorie" class="control-label">Kategorie</label>
-		<div id="multidivcontainer">
-	<select class="selectpicker selec" title='Kategorie ausw‰hlen' >
-    <option disabled="disabled" selected="selected" data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie ausw‰hlen</option>
-    <option data-icon="glyphicon glyphicon-home">Privat</option>
-    <option data-icon="glyphicon glyphicon-briefcase">Geschf‰tlich</option>
-    <option data-icon="glyphicon glyphicon-bookmark">Hobby</option>
-    <option data-icon="glyphicon glyphicon-gift">Geburtstag</option>
-    <option data-icon="glyphicon glyphicon-flag">Feiertag</option>
-    <option data-icon="glyphicon glyphicon-plane">Urlaub</option>
-    
-  		</select>
-  
-  </div>
-							<script type="text/javascript">
-							$('.selectpicker').selectpicker();
-										$('#datetimepicker2').datepicker(
-																									{
-																										format : "dd/M/yyyy",
-																										orientation : "top left",
-																										language : "de",
-																										autoclose : true,
-																										todayBtn: "linked",
-																									    todayHighlight: true
-																									 
-
-																									});
-										$('#datetimepicker1').datepicker(
-												{
-													format : "dd/M/yyyy",
-													orientation : "top left",
-													language : "de",
-													autoclose : true,
-													todayBtn: "linked",
-												    todayHighlight: true
-
-												});
-																					
-																					$('.clockpicker').clockpicker();
-																					 
-										</script>
-
-
-
-									</div>
-
-
-
-
-
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schlieﬂen</button>
@@ -283,4 +212,14 @@
 		<!-- /.container-fluid -->
 	</nav>
 </body>
+<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
+<script type="text/javascript"
+	src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
+<script type="text/javascript"
+	src="../bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
 </html>
