@@ -10,7 +10,8 @@ import java.sql.*;
 
 
 /*Singleton DatabaseController */
-public class DatabaseController {
+public class DatabaseController 
+{
 	 String connectionUrl = "jdbc:mysql://localhost/";
 	 String connectionUser = "root";
 	 String connectionPassword = "";
@@ -137,8 +138,6 @@ public class DatabaseController {
 		
 		
 	}
-
-	
 
 	public  String getFullUsernameByEmail(String email) throws SQLException
 
