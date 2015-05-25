@@ -102,6 +102,11 @@ public class DatabaseController {
 	
 	public  boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)
 	{
+		//Benutzerobobjekt empfangen und aus dem Objekt die einzelnen Werte ziehen.
+		//Ablauf INSERT: Daten lesen, Objekt zusammenbauen ("Objekthülle"), in die DB schreiben
+		//Ablauf SELECT:Daten aus der DB lesen, Objekt zusammenstellen, Objekt freigeben
+		
+		//ToDo: Parameterliste ändern!
 		try
 		{
 			int address_id;			
@@ -135,7 +140,7 @@ public class DatabaseController {
 		
 		
 	}
-	
+
 	public  String getFullUsernameByEmail(String email) throws SQLException
 	{
 		try{
