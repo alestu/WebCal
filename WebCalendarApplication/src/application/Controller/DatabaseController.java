@@ -136,7 +136,7 @@ public class DatabaseController {
 		
 	}
 	
-	public  String getFullUsernameByEmail(String email) throws SQLException
+	public String getFullUsernameByEmail(String email) throws SQLException
 	{
 		try{
 	
