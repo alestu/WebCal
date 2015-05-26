@@ -8,88 +8,93 @@
 <title>Calendar View</title>
 </head>
 <body>
-<%
-	Calendar calendar = Calendar.getInstance();
-	calendar.getTime();
-	SimpleDateFormat formatter = new SimpleDateFormat("MMMM YYYY");
-%>
-<h2><%=formatter.format(calendar.getTime())%></h2>
-
-<table>
-<tr>
-	<th>Woche</th>
-	<th>Montag</th>
-	<th>Dienstag</th>
-	<th>Mittwoch</th>
-	<th>Donnerstag</th>
-	<th>Freitag</th>
-	<th>Samstag</th>
-	<th>Sonntag</th>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-</table>
+	<%
+		Calendar calendar = Calendar.getInstance();
+		calendar.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("MMMM YYYY");
+	%>
+	<h2><%=formatter.format(calendar.getTime())%></h2>
+	
+	<table>
+		<tr>
+			<th>Woche</th>
+			<th>Montag</th>
+			<th>Dienstag</th>
+			<th>Mittwoch</th>
+			<th>Donnerstag</th>
+			<th>Freitag</th>
+			<th>Samstag</th>
+			<th>Sonntag</th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
 </body>
 </html>
 
+<<<<<<< HEAD
 <!--  Good Morning Erik Schmidt -->
 
 <!-- Hallo Sandro -->
+=======
+<!--  Good Morning Erik -->
+<!-- Hallo Toni -->
+>>>>>>> refs/remotes/origin/master
