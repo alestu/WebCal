@@ -31,7 +31,7 @@ public class DatabaseController
 	}
 	
 	/*Querys*/
-	public  boolean checkEmailAndPassword(String email,String password_) 
+	public boolean checkEmailAndPassword(String email,String password_) 
 	{
 		try
 		{
