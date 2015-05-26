@@ -8,15 +8,12 @@
 <script src='../fullcalendar/lib/jquery.min.js'></script>
 <script src='../fullcalendar/lib/moment.min.js'></script>
 <script src='../fullcalendar/fullcalendar.js'></script>
+<script src='../fullcalendar/lang-all.js'></script>
 <script>
-$(document).ready(function() {
-
-    // page is now ready, initialize the calendar...
-
+$(document).ready(function(){
     $('#calendar').fullCalendar({
-        // put your options and callbacks here
-    })
-
+        lang: 'de'
+    });
 });
 </script>
 </head>
