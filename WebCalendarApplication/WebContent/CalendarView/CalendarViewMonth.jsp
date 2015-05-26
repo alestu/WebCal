@@ -90,11 +90,3 @@
 </body>
 </html>
 
-<<<<<<< HEAD
-<!--  Good Morning Erik Schmidt -->
-
-<!-- Hallo Sandro -->
-=======
-<!--  Good Morning Erik -->
-<!-- Hallo Toni -->
->>>>>>> refs/remotes/origin/master
