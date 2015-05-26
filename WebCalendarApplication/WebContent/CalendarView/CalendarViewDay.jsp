@@ -14,6 +14,8 @@ $(document).ready(function(){
     $('#calendar').fullCalendar({
         lang: 'de'
     });
+    
+    $('#calendar').fullCalendar('changeView', 'agendaDay');
 });
 </script>
 </head>
