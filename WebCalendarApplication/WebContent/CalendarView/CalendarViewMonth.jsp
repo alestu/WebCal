@@ -12,7 +12,9 @@
 <script>
 $(document).ready(function(){
     $('#calendar').fullCalendar({
-        lang: 'de'
+        lang: 'de',
+        weekNumbers: 'true',
+        aspectRatio: 2.5
     });
 });
 </script>

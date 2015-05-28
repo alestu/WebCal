@@ -12,7 +12,8 @@
 <script>
 $(document).ready(function(){
     $('#calendar').fullCalendar({
-        lang: 'de'
+        lang: 'de',
+        aspectRatio: 2.5
     });
     
     $('#calendar').fullCalendar('changeView', 'agendaDay');
