@@ -26,7 +26,8 @@ create table users (user_id INT NOT NULL AUTO_INCREMENT,
  UNIQUE INDEX (email)
 );
 
-create table event (event_id INT NOT NULL AUTO_INCREMENT,
+create table event (
+event_id INT NOT NULL AUTO_INCREMENT,
 title varchar(50) not null,
 description varchar(120),
 place varchar(30),

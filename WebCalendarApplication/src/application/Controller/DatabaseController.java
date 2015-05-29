@@ -1,10 +1,14 @@
 package application.Controller;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+
+import application.Model.Event;
+import application.Model.User;
 
 
 
@@ -95,27 +99,59 @@ public class DatabaseController
 		
 		
 	}
-	
-	public boolean RegisterUser(String email, String password_, String first_name, String last_name,String street, String street_nr,int postcode,String city)
+	public boolean insertEvent(Event e)
 	{
-		//Benutzerobobjekt empfangen und aus dem Objekt die einzelnen Werte ziehen.
-		//Ablauf INSERT: Daten lesen, Objekt zusammenbauen ("Objekthülle"), in die DB schreiben
-		//Ablauf SELECT:Daten aus der DB lesen, Objekt zusammenstellen, Objekt freigeben
-		
-		//ToDo: Parameterliste �ndern!
+		//ToDo's:
+		//Evtl. die Attribute "event_end" und "event_begin" passend umwandeln (Date/String)?
+		//Event Objekt zusammenstellen und Methodenaufruf ausführen
 		try
 		{
+			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"');";
+			stmt.execute(query);
+			return true;
+			
+		}
+		catch(Exception ex)
+		{ 
+			System.out.println("Failed inserting event");
+			return false;
+		}
+	}
+	public boolean updateEvent(Event e)
+	{
+		//ToDo's:
+		//Anfangs- und Endzeit eines Events der Query hinzufügen
+		//Event Objekt zusammenstellen und Methodenaufruf ausführen
+		try
+		{
+			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"' WHERE event_id="+e.event_id+";";
+			stmt.execute(query);
+			return true;
+			
+		}
+		catch(Exception ex)
+		{ 
+			System.out.println("Failed updating event");
+			return false;
+		}
+		
+	}
+	public boolean RegisterUser(User u)
+	{
+		
+		try
+		{		
 			int address_id;			
-			String sqlString = "insert into address (street,street_nr,postcode,city) values('"+street+"','"+street_nr+"',"+postcode+",'"+city+"');";
+			String sqlString = "INSERT INTO address (street,street_nr,postcode,city) VALUES('"+u.adress.street+"','"+u.adress.street_nr+"',"+u.adress.postcode+",'"+u.adress.city+"');";
 			System.out.println("address created..." + String.valueOf(stmt.executeUpdate(sqlString)));
-			sqlString = "select address_id from address where street = "+"'"+street+"' and street_nr = '"+street_nr+ "' and postcode = "+postcode+" and city = '"+city+"';";
+			sqlString = "select address_id from address where street = "+"'"+u.adress.street+"' and street_nr = '"+u.adress.street_nr+ "' and postcode = "+u.adress.postcode+" and city = '"+u.adress.city+"';";
 			System.out.println(sqlString);
 			ResultSet res = stmt.executeQuery(sqlString);
 			if(res.next())
 			{
 				address_id = res.getInt(1);
 				System.out.println("Fetching address_id..");
-				sqlString = "insert into users (email,password_,first_name,last_name,address_id) values ('"+email+"','"+password_+"','"+first_name+"','"+last_name+"',"+address_id+");";
+				sqlString = "INSERT INTO users (email,password_,first_name,last_name,address_id) VALUES ('"+u.email+"','"+u.password_+"','"+u.first_name+"','"+u.last_name+"',"+address_id+");";
 				System.out.println(sqlString);
 				System.out.println("User created..."+String.valueOf(stmt.executeUpdate(sqlString)));
 				return true;

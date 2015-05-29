@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import application.Model.User;
+
 /**
  * Servlet implementation class RegisterAccount
  */
@@ -30,24 +32,27 @@ public class RegisterAccount extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		String email = request.getParameter("email");
-		String password_ = request.getParameter("password");
-		String first_name = request.getParameter("firstname");
-		String last_name = request.getParameter("lastname");
-		String street = request.getParameter("street");
-		String street_nr = request.getParameter("streetnr");
-		String postcode = request.getParameter("postcode");
-		String city = request.getParameter("city");
+		/*Benutzerobjekt zusammenstellen und anschließend dem DB Controller übergeben*/
+		User newUser = new User();
+		
+		newUser.email = request.getParameter("email");
+		newUser.password_ = request.getParameter("password");
+		newUser.first_name = request.getParameter("firstname");
+		newUser.last_name = request.getParameter("lastname");
+		newUser.adress.street = request.getParameter("street");
+		newUser.adress.street_nr = request.getParameter("streetnr");
+		newUser.adress.postcode = Integer.parseInt(request.getParameter("postcode"));
+		newUser.adress.city = request.getParameter("city");
 		
 		
 		DatabaseController controller = new DatabaseController();
 		
 		
-		if(!controller.isEmailAlreadyinUse(email))
+		if(!controller.isEmailAlreadyinUse(newUser.email))
 		{
-		if(controller.RegisterUser(email, password_, first_name, last_name, street, street_nr,Integer.valueOf(postcode),city))
+		if(controller.RegisterUser(newUser))
 		{
-			response.sendRedirect("Login/login.jsp?reg=true&user="+ email);
+			response.sendRedirect("Login/login.jsp?reg=true&user="+ newUser.email);
 		}
 		else
 		{
