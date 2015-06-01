@@ -189,13 +189,13 @@
 				<!-- Filter -->
 				<div class="btn-group navbar-form navbar-left test"
 					data-toggle="buttons">
-					<label class="btn btn-primary active"> <input type="radio"
-						name="options" id="option1" autocomplete="off"> Tag
+					<label class="btn btn-primary"> <input type="radio"
+						name="options" id="agendaDay" autocomplete="off"> Tag
 					</label> <label class="btn btn-primary"> <input type="radio"
-						name="options" id="option2" autocomplete="off" checked>
+						name="options" id="agendaWeek" autocomplete="off" checked>
 						Woche
-					</label> <label class="btn btn-primary"> <input type="radio"
-						name="options" id="option3" autocomplete="off"> Monat
+					</label> <label class="btn btn-primary active"> <input type="radio"
+						name="options" id="month" autocomplete="off"> Monat
 					</label>
 				</div>
 
@@ -235,18 +235,8 @@ $(document).ready(function(){
         aspectRatio: 2.8
     });
     
-    $("#calendar").fullCalendar("changeView", "agendaDay");
-    
-    $("#option1").check(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaDay");
-    });
-    
-    $("#option2").check(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaWeek");
-    });
-    
-    $("#option3").check(function(){
-    	$("#calendar").fullCalendar("changeView", "month");
+    $("input[type=radio]").check(function(){
+    	$(this).fullCalendar("changeView", $(this).attr("id"));
     });
 });
 </script>
