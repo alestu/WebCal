@@ -2,8 +2,8 @@
 <%@page import="com.sun.org.apache.xml.internal.utils.StringComparable"%>
 <%@page import="application.Controller.DatabaseController"%>
 <%@page import="java.sql.*"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%
 	String email = "";
 	String password = "";
@@ -38,23 +38,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>WebCal</title>
 <link rel="stylesheet" href="../bootstrap/css/navigation.css"
-	type="text/css">
+	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
-	type="text/css">
+	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/termin.css"
-	type="text/css">
+	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/bootstrap-datepicker.css"
-	type="text/css">
+	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/bootstrap-select.css"
-	type="text/css">
+	type="text/css"/>
 <link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/bootstrap-clockpicker.min.css">
+	href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
 <link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/github.min.css">
-
+	href="../bootstrap/css/github.min.css"/>
+	
+<link rel="stylesheet" href="../fullcalendar/fullcalendar.css" type="text/css"/>
 
 </head>
 <body>
@@ -160,12 +161,12 @@
 										<label for="kategorie" class="control-label">Kategorie</label>
 										<div id="multidivcontainer">
 											<select class="selectpicker selec"
-												title='Kategorie ausw‰hlen'>
+												title='Kategorie ausw√§hlen'>
 												<option disabled="disabled" selected="selected"
 													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
-													ausw‰hlen</option>
+													ausw√§hlen</option>
 												<option data-icon="glyphicon glyphicon-home">Privat</option>
-												<option data-icon="glyphicon glyphicon-briefcase">Geschf‰tlich</option>
+												<option data-icon="glyphicon glyphicon-briefcase">Geschf√§tlich</option>
 												<option data-icon="glyphicon glyphicon-bookmark">Hobby</option>
 												<option data-icon="glyphicon glyphicon-gift">Geburtstag</option>
 												<option data-icon="glyphicon glyphicon-flag">Feiertag</option>
@@ -175,7 +176,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Schlieﬂen</button>
+											data-dismiss="modal">Schlie√üen</button>
 										<button type="button" type="submit" class="btn btn-primary">Termin
 											erstellen</button>
 									</div>
@@ -211,6 +212,7 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
+	<div id="calendar"></div>
 </body>
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -222,4 +224,30 @@
 <script type="text/javascript"
 	src="../bootstrap/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
+
+<script src="../fullcalendar/lib/moment.min.js"></script>
+<script src="../fullcalendar/fullcalendar.js"></script>
+<script src="../fullcalendar/lang-all.js"></script>
+<script>
+$(document).ready(function(){
+    $("#calendar").fullCalendar({
+        lang: "de",
+        aspectRatio: 2.8
+    });
+    
+    $("#calendar").fullCalendar("changeView", "agendaDay");
+    
+    $("#option1").check(function(){
+    	$("#calendar").fullCalendar("changeView", "agendaDay");
+    });
+    
+    $("#option2").check(function(){
+    	$("#calendar").fullCalendar("changeView", "agendaWeek");
+    });
+    
+    $("#option3").check(function(){
+    	$("#calendar").fullCalendar("changeView", "month");
+    });
+});
+</script>
 </html>
