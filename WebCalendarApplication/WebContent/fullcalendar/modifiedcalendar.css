@@ -5,3 +5,9 @@
 	padding: 0;
 	max-width: 99%;
 }
+	
+.title{
+	font-size: 18pt;
+	font-weight: bold;
+	width: auto;
+}

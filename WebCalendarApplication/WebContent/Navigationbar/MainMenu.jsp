@@ -2,8 +2,7 @@
 <%@page import="com.sun.org.apache.xml.internal.utils.StringComparable"%>
 <%@page import="application.Controller.DatabaseController"%>
 <%@page import="java.sql.*"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
 	String email = "";
 	String password = "";
@@ -40,25 +39,17 @@
 <head>
 <meta charset="utf-8">
 <title>WebCal</title>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/termin.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap-datepicker.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.css"
-	type="text/css"/>
-<link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
-<link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/github.min.css"/>
-		
-<link rel="stylesheet" href="../bootstrap/css/navigation.css"
-	type="text/css"/>
-	
-<link rel="stylesheet" href="../fullcalendar/fullcalendar.css" type="text/css"/>
-<link rel="stylesheet" href="../fullcalendar/calendarCustom.css" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/github.min.css"/>
 
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/termin.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/navigation.css"/>
+	
+<link rel="stylesheet" type="text/css" href="../fullcalendar/fullcalendar.css"/>
+<link rel="stylesheet" type="text/css" href="../fullcalendar/modifiedcalendar.css"/>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -238,52 +229,16 @@
 </body>
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
 <script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
 
-<script src="../fullcalendar/lib/moment.min.js"></script>
-<script src="../fullcalendar/fullcalendar.js"></script>
-<script src="../fullcalendar/lang-all.js"></script>
-<script>
-$(document).ready(function(){
-    $("#calendar").fullCalendar({
-        lang: "de",
-        aspectRatio: 2.5,
-        header: false
-    });
-    
-	$("#title").text($("#calendar").fullCalendar("getView").title);
-    
-    $("#agendaDay").click(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaDay");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-    $("#agendaWeek").click(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaWeek");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-    $("#month").click(function(){
-    	$("#calendar").fullCalendar("changeView", "month");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-    $("#prev").click(function(){
-    	$("#calendar").fullCalendar("prev");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-    $("#today").click(function(){
-    	$("#calendar").fullCalendar("today");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-    $("#next").click(function(){
-    	$("#calendar").fullCalendar("next");
-    	$("#title").text($("#calendar").fullCalendar("getView").title);
-    });
-});
-</script>
+<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+
+<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
+<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
+<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
 </html>
