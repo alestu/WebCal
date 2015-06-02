@@ -186,20 +186,7 @@
 						</div>
 					</li>
 				</ul>
-
-				<!-- Filter -->
-				<div class="btn-group navbar-form navbar-left test" data-toggle="buttons">
-					<label class="btn btn-primary" id="agendaDay">
-						<input type="radio" name="options" autocomplete="off"> Tag
-					</label>
-					<label class="btn btn-primary" id="agendaWeek">
-						<input type="radio" name="options" autocomplete="off"> Woche
-					</label>
-					<label class="btn btn-primary active" id="month">
-						<input type="radio" name="options" autocomplete="off"> Monat
-					</label>
-				</div>
-
+				
 				<!-- Suche -->
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group has-feedback-left has-feedback">
@@ -207,6 +194,33 @@
 						<i class="form-control-feedback glyphicon glyphicon-search"></i>
 					</div>
 				</form>
+
+				<!-- Filter -->
+				<div class="btn-group navbar-form navbar-right" data-toggle="buttons">
+					<label class="btn btn-primary" id="agendaDay">
+						<input type="radio" name="views" autocomplete="off"> Tag
+					</label>
+					<label class="btn btn-primary" id="agendaWeek">
+						<input type="radio" name="views" autocomplete="off"> Woche
+					</label>
+					<label class="btn btn-primary active" id="month">
+						<input type="radio" name="views" autocomplete="off"> Monat
+					</label>
+				</div>
+				
+				<!-- Filter -->
+				<div class="btn-group navbar-form navbar-right">
+					<label class="btn btn-primary" id="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+					</label>
+					<label class="btn btn-primary" id="today">
+						Heute
+					</label>
+					<label class="btn btn-primary" id="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</label>
+				</div>
+				
 				<!-- NAVIGATIONBAR ELEMENTE ENDE  -->
 			</div>
 			<!-- /.navbar-collapse -->
@@ -246,6 +260,15 @@ $(document).ready(function(){
     });
     $("#month").click(function(){
     	$("#calendar").fullCalendar("changeView", "month");
+    });
+    $("#prev").click(function(){
+    	$("#calendar").fullCalendar("prev");
+    });
+    $("#today").click(function(){
+    	$("#calendar").fullCalendar("today");
+    });
+    $("#next").click(function(){
+    	$("#calendar").fullCalendar("next");
     });
 });
 </script>
