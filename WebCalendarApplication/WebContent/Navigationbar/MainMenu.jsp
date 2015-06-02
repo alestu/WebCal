@@ -187,15 +187,15 @@
 				</ul>
 
 				<!-- Filter -->
-				<div class="btn-group navbar-form navbar-left test"
-					data-toggle="buttons">
-					<label class="btn btn-primary"> <input type="radio"
-						name="options" id="agendaDay" autocomplete="off"> Tag
-					</label> <label class="btn btn-primary"> <input type="radio"
-						name="options" id="agendaWeek" autocomplete="off" checked>
-						Woche
-					</label> <label class="btn btn-primary active"> <input type="radio"
-						name="options" id="month" autocomplete="off"> Monat
+				<div class="btn-group navbar-form navbar-left test" data-toggle="buttons">
+					<label class="btn btn-primary" id="agendaDay">
+						<input type="radio" name="options" autocomplete="off"> Tag
+					</label>
+					<label class="btn btn-primary" id="agendaWeek">
+						<input type="radio" name="options" autocomplete="off"> Woche
+					</label>
+					<label class="btn btn-primary active" id="month">
+						<input type="radio" name="options" autocomplete="off"> Monat
 					</label>
 				</div>
 
@@ -232,11 +232,18 @@
 $(document).ready(function(){
     $("#calendar").fullCalendar({
         lang: "de",
-        aspectRatio: 2.8
+        aspectRatio: 2.8,
+        header: {left: "",center: "title", right: ""}
     });
     
-    $("input[type=radio]").check(function(){
-    	$(this).fullCalendar("changeView", $(this).attr("id"));
+    $("#agendaDay").click(function(){
+    	$("#calendar").fullCalendar("changeView", "agendaDay");
+    });
+    $("#agendaWeek").click(function(){
+    	$("#calendar").fullCalendar("changeView", "agendaWeek");
+    });
+    $("#month").click(function(){
+    	$("#calendar").fullCalendar("changeView", "month");
     });
 });
 </script>
