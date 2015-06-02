@@ -40,8 +40,6 @@
 <head>
 <meta charset="utf-8">
 <title>WebCal</title>
-<link rel="stylesheet" href="../bootstrap/css/navigation.css"
-	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
 	type="text/css"/>
 <link rel="stylesheet" href="../bootstrap/css/termin.css"
@@ -54,6 +52,9 @@
 	href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/github.min.css"/>
+		
+<link rel="stylesheet" href="../bootstrap/css/navigation.css"
+	type="text/css"/>
 	
 <link rel="stylesheet" href="../fullcalendar/fullcalendar.css" type="text/css"/>
 <link rel="stylesheet" href="../fullcalendar/calendarCustom.css" type="text/css"/>
@@ -195,7 +196,7 @@
 					</div>
 				</form>
 
-				<!-- Filter -->
+				<!-- Kalenderansicht -->
 				<div class="btn-group navbar-form navbar-right" data-toggle="buttons">
 					<label class="btn btn-primary" id="agendaDay">
 						<input type="radio" name="views" autocomplete="off"> Tag
@@ -208,7 +209,7 @@
 					</label>
 				</div>
 				
-				<!-- Filter -->
+				<!-- Steuerung -->
 				<div class="btn-group navbar-form navbar-right">
 					<label class="btn btn-primary" id="prev">
 						<span class="glyphicon glyphicon-chevron-left"></span>
@@ -219,6 +220,11 @@
 					<label class="btn btn-primary" id="next">
 						<span class="glyphicon glyphicon-chevron-right"></span>
 					</label>
+				</div>
+				
+				<!-- Titel -->
+				<div class="navbar-form navbar-right title">
+					<span id="title"></span>
 				</div>
 				
 				<!-- NAVIGATIONBAR ELEMENTE ENDE  -->
@@ -252,23 +258,31 @@ $(document).ready(function(){
         header: false
     });
     
+	$("#title").text($("#calendar").fullCalendar("getView").title);
+    
     $("#agendaDay").click(function(){
     	$("#calendar").fullCalendar("changeView", "agendaDay");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
     $("#agendaWeek").click(function(){
     	$("#calendar").fullCalendar("changeView", "agendaWeek");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
     $("#month").click(function(){
     	$("#calendar").fullCalendar("changeView", "month");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
     $("#prev").click(function(){
     	$("#calendar").fullCalendar("prev");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
     $("#today").click(function(){
     	$("#calendar").fullCalendar("today");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
     $("#next").click(function(){
     	$("#calendar").fullCalendar("next");
+    	$("#title").text($("#calendar").fullCalendar("getView").title);
     });
 });
 </script>
