@@ -56,6 +56,7 @@
 	href="../bootstrap/css/github.min.css"/>
 	
 <link rel="stylesheet" href="../fullcalendar/fullcalendar.css" type="text/css"/>
+<link rel="stylesheet" href="../fullcalendar/calendarCustom.css" type="text/css"/>
 
 </head>
 <body>
@@ -212,6 +213,7 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
+	
 	<div id="calendar"></div>
 </body>
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
@@ -232,8 +234,8 @@
 $(document).ready(function(){
     $("#calendar").fullCalendar({
         lang: "de",
-        aspectRatio: 2.8,
-        header: {left: "",center: "title", right: ""}
+        aspectRatio: 2.5,
+        header: false
     });
     
     $("#agendaDay").click(function(){
