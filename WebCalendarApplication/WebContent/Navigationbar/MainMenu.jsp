@@ -4,31 +4,64 @@
 <%@page import="java.sql.*"%>
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
-	String email = "";
-	String password = "";
+String email ="";
+String password ="";
 
-	if (!request.equals(null)) {
-		email = request.getParameter("email");
-		password = request.getParameter("password");
-		session.setAttribute("email", email);
-		session.setAttribute("password_", password);
-	}
-	else {
+String red = request.getParameter("red");	
+String login = request.getParameter("login");
+if(red != null && !red.isEmpty())
+{
+	System.out.println("red ist nicht null und nicht leer");
+	if(red.compareTo("true")==0)
+	{
+			
+		System.out.println("red ist true");
 		email = session.getAttribute("email").toString();
 		password = session.getAttribute("password_").toString();
+		
 	}
-
-	String userName = "not-assigned";
-	DatabaseController controller = new DatabaseController();
-
-	if (controller.checkEmailAndPassword(email, password)) {
-		userName = controller.getFullUsernameByEmail(email);
+	
+}
+else if (login != null && !login.isEmpty() )
+{
+	if(login.compareTo("true") == 0)
+	{
+	email = request.getParameter("email");
+	password = request.getParameter("password");
+	session.setAttribute("email", email);
+	session.setAttribute("password_", password);
 	}
-	else {
+}
+else
+{
+	if(null == session.getAttribute("email")){
+		%>
+		
+		<jsp:forward page="../Login/login.jsp" />
+		<%
+		}
+		else
+		{
+			email = session.getAttribute("email").toString();
+			password = session.getAttribute("password_").toString();
+			
+		}
+	
+	
+}
+
+
+String userName = "not-assigned";
+DatabaseController controller = new DatabaseController();
+
+if (controller.checkEmailAndPassword(email, password)) {
+	userName = controller.getFullUsernameByEmail(email);
+}
+else {
 %>
 <jsp:forward page="../Login/login.jsp" />
 <%
-	}
+}
 %>
 
 <!DOCTYPE html>
@@ -77,7 +110,7 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<!-- Funktionen -->
-							<li><a href="#">Abmelden</a></li>
+							<li><a href="http://localhost:8080/WebCalendarApplication/Login/login.jsp?logout=true">Abmelden</a></li>
 						</ul>
 					</li>
 

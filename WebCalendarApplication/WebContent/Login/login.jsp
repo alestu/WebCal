@@ -12,13 +12,33 @@
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap/css/signin.css">
 <%
-	if (session.getAttribute("email") == null) {
-
-	} else {
-%>
-<jsp:forward page="../Navigationbar/MainMenu.jsp" />
-<%
+String logout = request.getParameter("logout");						
+if(logout != null && !logout.isEmpty())
+{
+	System.out.println("logout ist nicht null und nicht leer");
+	if(logout.compareTo("true")==0)
+	{
+		System.out.println("logout ist true");
+		session.invalidate();
+		session = request.getSession(true);
+		
 	}
+	
+}
+
+
+if(null == session.getAttribute("email")){
+	  // User is not logged in.
+	System.out.println("User nicht angemeldet");
+	}else{
+	  // User IS logged in.
+	  System.out.println("Redirecting...");
+		%>
+		
+		<jsp:forward page="../Navigationbar/MainMenu.jsp?red=true" />
+		<%
+	}
+
 
 boolean userNameExist = false;
 String preMail = request.getParameter("user");						
@@ -35,7 +55,7 @@ if(preMail != null && !preMail.isEmpty())
 	<div class="container">
 
 		<form class="form-signin" method="post"
-			action="../Navigationbar/MainMenu.jsp">
+			action="../Navigationbar/MainMenu.jsp?login=true">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				name="email" type="email" id="inputEmail" class="form-control"
