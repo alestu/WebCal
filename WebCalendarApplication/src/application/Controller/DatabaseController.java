@@ -226,9 +226,8 @@ public class DatabaseController
 	{
 		//Antonio Nunziata
 		try
-		{
-			
-			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"');";
+		{			
+			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category,user_id) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"',"+e.user_id+");";
 			stmt.execute(query);
 			System.out.println("Inserting was successfully");
 			return true;
