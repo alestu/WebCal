@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 
 
 
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +45,14 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		DatabaseController controller = new DatabaseController();
-		out.write(email+ "    "+  password+"  ...."+ String.valueOf(controller.checkEmailAndPassword("Alessandros@live.de", "Passwort123")));
+		try
+		{
+			out.write(email+ "    "+  password+"  ...."+ String.valueOf(controller.checkEmailAndPassword("Alessandros@live.de", "Passwort123")));
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		

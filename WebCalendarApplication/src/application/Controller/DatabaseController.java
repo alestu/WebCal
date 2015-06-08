@@ -43,13 +43,14 @@ public class DatabaseController
 	
 	
 	/*Querys*/
-	private void setUserData(String email)
+	private void setUserData(String email) throws SQLException
 	{
 		System.out.println("User Objekt bauen");
+		String sqlString = "SELECT * from users WHERE email = '"+ email +"';";		
+		ResultSet res = null;
 		try 
 		{
-			String sqlString = "SELECT * from users WHERE email = '"+ email +"';";		
-			ResultSet res = stmt.executeQuery(sqlString);
+			res =  stmt.executeQuery(sqlString);
 			if(res.first())
 			{
 				System.out.println("User Daten aus DB gelesen");
@@ -59,7 +60,7 @@ public class DatabaseController
 				DatabaseController.activeUser.email = email;
 				DatabaseController.activeUser.user_id = Integer.parseInt(res.getString("user_id"));
 				System.out.println("Objekt erfolgreich zusammengestellt!");
-				stmt.close();
+				
 			}
 		} 
 		catch (SQLException e) 
@@ -67,74 +68,98 @@ public class DatabaseController
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		  }
 		
 	}
-	public boolean checkEmailAndPassword(String email,String password_) 
+	public boolean checkEmailAndPassword(String email,String password_) throws SQLException 
 	{
+		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";
+		ResultSet res = null;
 		try
 		{
-		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";		
-		ResultSet res = stmt.executeQuery(sqlString);
-		if(!res.first())
-		{
-			stmt.close();
-			return false;
-			
-		}
-		else
-		{
-			System.out.println("Login war erfolgreich!");
-			setUserData(email); //Objekt bauen
-			stmt.close();			
-			return true;
-		}
-		
-		
-		
+				
+			res = stmt.executeQuery(sqlString);
+			if(!res.first())
+			{
+				stmt.close();
+				return false;
+				
+			}
+			else
+			{
+				System.out.println("Login war erfolgreich!");
+				setUserData(email); //Objekt bauen
+				stmt.close();			
+				return true;
+			}
 		}
 		catch(SQLException ex)
 		{
 			System.out.println("ExceptionMessage: " +ex);
 		}
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		  }
 		return false;
 	}
 	
-	public boolean isEmailAlreadyinUse(String email)
+	public boolean isEmailAlreadyinUse(String email) throws SQLException
 	{
+		ResultSet res =null;
+		String sqlString = "select email from users where email = '"+ email +"';";		
 		try
 		{
-		String sqlString = "select email from users where email = '"+ email +"';";		
-				
-		ResultSet res = stmt.executeQuery(sqlString);
-		if(res.first())
-		{
-			
-			return true;
-			
-		}
-		else
-		{
-			
-			
-			return false;
-		}
-		
-		
-		
+			res = stmt.executeQuery(sqlString);
+			if(res.first())
+			{			
+				return true;				
+			}
+			else
+			{
+				return false;
+			}
 		}
 		catch(SQLException ex)
 		{
 			System.out.println("ExceptionMessage: " +ex);
 			return false;
 		}	
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		  }
 	}
-	public ResultSet selectEventsWithFilter(int user_id, String filter)
+	public ResultSet selectEventsWithFilter(int user_id, String filter) throws SQLException
 	{
+		String query = "SELECT * FROM event WHERE event.user_id ="+user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
+		ResultSet res = null;
+		
 		//Antonio Nunziata
 		try
 		{		    
-			String query = "SELECT * FROM event WHERE event.user_id ="+user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
-			ResultSet res = stmt.executeQuery(query);
+			res = stmt.executeQuery(query);
 			return res;
 			
 		}
@@ -143,6 +168,16 @@ public class DatabaseController
 			System.out.println("Failed selecting events");
 			return null;
 		}
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		  }
 		
 	}
 	public boolean deleteEvent(int event_id)
@@ -184,7 +219,10 @@ public class DatabaseController
 		}
 		catch(Exception ex)
 		{ 
-			System.out.println("Failed selecting events");
+			System.out.println("Failed selecting event");
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
+			System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
 			return null;
 		}
 	}
@@ -193,8 +231,10 @@ public class DatabaseController
 		//Antonio Nunziata
 		try
 		{		    
-			String query = "SELECT * FROM event WHERE event.user_id ="+DatabaseController.activeUser.user_id+";";			
+			String query = "SELECT * FROM users;";		
+			System.out.println("before query");
 			ResultSet res = stmt.executeQuery(query);
+			System.out.println("after query");
 			ArrayList<Event> events = new ArrayList<Event>();
 			
 			//Aus den selektierten Daten ein Event-Objekt bauen und der Event-Liste hinzufügen
@@ -282,9 +322,7 @@ public class DatabaseController
 			{
 				System.out.println("Failed fetching address_id");
 				return false;
-			}
-			
-			
+			}		
 		}
 		catch(Exception ex)
 		{	System.out.println(ex);
