@@ -112,6 +112,7 @@
 									<div class="modal-body">
 										<div id="multidivcontainer">
 											<div class="title">
+											
 												<label for="title" class="control-label">Titel</label> <input
 													type="text" class="form-control " name="title"
 													placeholder="Titel" required id="txtEventTitle">
