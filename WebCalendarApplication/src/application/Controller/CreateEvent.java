@@ -78,7 +78,9 @@ public class CreateEvent extends HttpServlet {
 		e.event_end = GetDateFormat(request.getParameter("enddatum"),request.getParameter("endzeit"));
 		e.full_day = false; //Nachträglich ändern
 		e.category  = request.getParameter("kategorie");
-			
+		
+		
+		
 		System.out.println("Writing event in database ...");
 		DatabaseController controller = new DatabaseController();
 		controller.insertEvent(e); //Datenobjekt übergeben

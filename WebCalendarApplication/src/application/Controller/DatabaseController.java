@@ -206,9 +206,9 @@ public class DatabaseController
 		{
 			//Java Calendar in passendes SQL DateTime-Format umwandeln
 		    java.sql.Date begin = new java.sql.Date(e.event_begin.getTime().getTime());
-		    java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());
+		    java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());   
 		    
-			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+begin+"','"+end+"',"+e.full_day+",'"+e.category+"');";
+			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category,user_id) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+begin+"','"+end+"',"+e.full_day+",'"+e.category+"');";
 			stmt.execute(query);
 			System.out.println("Inserting was successfully");
 			return true;
