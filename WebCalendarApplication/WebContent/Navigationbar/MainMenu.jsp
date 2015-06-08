@@ -2,33 +2,29 @@
 <%@page import="com.sun.org.apache.xml.internal.utils.StringComparable"%>
 <%@page import="application.Controller.DatabaseController"%>
 <%@page import="java.sql.*"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
 	String email = "";
 	String password = "";
 
 	if (!request.equals(null)) {
-
 		email = request.getParameter("email");
 		password = request.getParameter("password");
 		session.setAttribute("email", email);
 		session.setAttribute("password_", password);
-
-	} else {
+	}
+	else {
 		email = session.getAttribute("email").toString();
 		password = session.getAttribute("password_").toString();
-
 	}
 
 	String userName = "not-assigned";
-
 	DatabaseController controller = new DatabaseController();
 
 	if (controller.checkEmailAndPassword(email, password)) {
 		userName = controller.getFullUsernameByEmail(email);
-
-	} else {
+	}
+	else {
 %>
 <jsp:forward page="../Login/login.jsp" />
 <%
@@ -40,57 +36,68 @@
 <head>
 <meta charset="utf-8">
 <title>WebCal</title>
-<link rel="stylesheet" href="../bootstrap/css/navigation.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/termin.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap-datepicker.css"
-	type="text/css"/>
-<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.css"
-	type="text/css"/>
-<link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
-<link rel="stylesheet" type="text/css"
-	href="../bootstrap/css/github.min.css"/>
-	
-<link rel="stylesheet" href="../fullcalendar/fullcalendar.css" type="text/css"/>
-<link rel="stylesheet" href="../fullcalendar/calendarCustom.css" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/github.min.css"/>
 
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/termin.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/navigation.css"/>
+	
+<link rel="stylesheet" type="text/css" href="../fullcalendar/fullcalendar.css"/>
+<link rel="stylesheet" type="text/css" href="../fullcalendar/modifiedcalendar.css"/>
 </head>
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<!-- NAVIGATIONBAR ELEMENTE  -->
+			<!-- Navigation elements  -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"> <span
-					class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+				<a class="navbar-brand" href="#">
+					<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 				</a>
 			</div>
 
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<!-- Accountverwaltung, Importieren, Exportieren & Abmelden -->
+					<!-- Account administration -->
 					<li class="dropdown">
+<<<<<<< HEAD
 						<!-- Anzeigename --> <a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false"><%=userName%>
 							<span class="caret"></span></a>
+=======
+						<!-- Username -->
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<%=userName%>
+							<span class="caret"></span>
+						</a>
+>>>>>>> refs/remotes/origin/master
 						<ul class="dropdown-menu" role="menu">
+<<<<<<< HEAD
 							<!-- Funktionen -->
+=======
+							<!-- Functions -->
+							<li><a href="#">Accountverwaltung</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Importieren</a></li>
+							<li><a href="#">Exportieren</a></li>
+							<li class="divider"></li>
+>>>>>>> refs/remotes/origin/master
 							<li><a href="#">Abmelden</a></li>
 						</ul>
 					</li>
 					<li>
 					</li>
+<<<<<<< HEAD
 					<!-- Termin erstellen -->
 					<li>
 						<button class="btn btn-default navbar-btn" data-toggle="modal"
@@ -188,28 +195,55 @@
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</button>
 					</li>
+=======
+					<!-- Create event -->
+					<%@include file="CreateEventModal.jsp" %>
+>>>>>>> refs/remotes/origin/master
 				</ul>
-
-				<!-- Filter -->
-				<div class="btn-group navbar-form navbar-left test" data-toggle="buttons">
-					<label class="btn btn-primary" id="agendaDay">
-						<input type="radio" name="options" autocomplete="off"> Tag
-					</label>
-					<label class="btn btn-primary" id="agendaWeek">
-						<input type="radio" name="options" autocomplete="off"> Woche
-					</label>
-					<label class="btn btn-primary active" id="month">
-						<input type="radio" name="options" autocomplete="off"> Monat
-					</label>
-				</div>
-
-				<!-- Suche -->
+				
+				<!-- Search -->
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group has-feedback-left has-feedback">
+<<<<<<< HEAD
 						<input type="text" class="form-control" placeholder="Suche" onkeydown="if (event.keyCode == 13) return false">
+=======
+						<input type="text" class="form-control" placeholder="Suche"/>
+>>>>>>> refs/remotes/origin/master
 						<i class="form-control-feedback glyphicon glyphicon-search"></i>
 					</div>
 				</form>
+
+				<!-- Calendarviews by Erik-->
+				<div class="btn-group navbar-form navbar-right" data-toggle="buttons">
+					<label class="btn btn-primary" id="agendaDay">
+						<input type="radio" name="views" autocomplete="off"/> Tag
+					</label>
+					<label class="btn btn-primary" id="agendaWeek">
+						<input type="radio" name="views" autocomplete="off"/> Woche
+					</label>
+					<label class="btn btn-primary active" id="month">
+						<input type="radio" name="views" autocomplete="off"/> Monat
+					</label>
+				</div>
+				
+				<!-- Calendarcontrol by Erik-->
+				<div class="btn-group navbar-form navbar-right">
+					<label class="btn btn-primary" id="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+					</label>
+					<label class="btn btn-primary" id="today">
+						Heute
+					</label>
+					<label class="btn btn-primary" id="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</label>
+				</div>
+				
+				<!-- Calendartitle by Erik-->
+				<div class="navbar-form navbar-right title">
+					<span id="title"></span>
+				</div>
+				
 				<!-- NAVIGATIONBAR ELEMENTE ENDE  -->
 			</div>
 			<!-- /.navbar-collapse -->
@@ -222,15 +256,13 @@
 
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
 <script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
-<script type="text/javascript"
-	src="../bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
 
+<<<<<<< HEAD
 <script src="../fullcalendar/lib/moment.min.js"></script>
 <script src="../fullcalendar/fullcalendar.js"></script>
 <script src="../fullcalendar/lang-all.js"></script>
@@ -290,4 +322,12 @@ $(document).ready(function(){
     
 });
 </script>
+=======
+<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+
+<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
+<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
+<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
+>>>>>>> refs/remotes/origin/master
 </html>
