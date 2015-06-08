@@ -28,6 +28,14 @@ public class GetEvents extends HttpServlet {
     public GetEvents() {
         controller = new DatabaseController();
     }
+    
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)throws IOException {
+        String name=req.getParameter("name");
+        System.out.println("ajax:" + name);
+        resp.setContentType("text/plain");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(name);
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
