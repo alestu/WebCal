@@ -23,6 +23,7 @@ $(document).ready(function(){
     
     getEvents();
     
+    
 	$("#title").text($("#calendar").fullCalendar("getView").title);
 	$("#datetimepicker2").datepicker("setDate", new Date());
 	$("#datetimepicker1").datepicker("setDate", new Date());
