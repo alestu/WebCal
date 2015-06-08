@@ -289,23 +289,8 @@ $(document).ready(function()
 	<%
 		//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
 		//Event[] events = controller.selectEvents().toArray(new Event[0]);
-		Event[] events = new Event[3];
-		events[0] = new Event();
-		events[0].event_id = 1;
-		events[0].title = "Ein erster Termin";
-		events[0].description = "";
-		events[0].place = "Zu Hause";
-		events[0].category = "Privat";
-		events[0].full_day = false;
-		events[0].event_begin = "09/Jun/2015 12:00";
-		events[0].event_end = "09/Jun/2015 13:00";
-		events[0].user_id = 3;
-	
-		int i = 0;
-		for(i = 0; i < events.length; i++)
-		{
-			%>events[<%=i%>] = <%=events[i]%>;<%
-		}
+		String test = controller.selectEvent(1);
+			
 	%>
 
 	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	

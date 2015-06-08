@@ -3,6 +3,7 @@ package application.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,23 +49,30 @@ public class RegisterAccount extends HttpServlet {
 		DatabaseController controller = new DatabaseController();
 		
 		
-		if(!controller.isEmailAlreadyinUse(newUser.email))
+		try 
 		{
-			if(controller.RegisterUser(newUser))
+			if(!controller.isEmailAlreadyinUse(newUser.email))
 			{
-				
-				response.sendRedirect("Login/login.jsp?reg=true&user="+ newUser.email);
+				if(controller.RegisterUser(newUser))
+				{
+					
+					response.sendRedirect("Login/login.jsp?reg=true&user="+ newUser.email);
+				}
+				else
+				{
+					
+					response.sendRedirect("Register/createAccount.jsp?reg=false");
+				}
 			}
 			else
 			{
+				response.sendRedirect("Register/createAccount.jsp?reg=alreadyinuse");
 				
-				response.sendRedirect("Register/createAccount.jsp?reg=false");
 			}
-		}
-		else
+		} catch (SQLException e) 
 		{
-			response.sendRedirect("Register/createAccount.jsp?reg=alreadyinuse");
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
