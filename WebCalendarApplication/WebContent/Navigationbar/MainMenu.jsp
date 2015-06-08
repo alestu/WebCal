@@ -106,20 +106,20 @@
 													placeholder="Titel" required="required">
 											</div>
 											<div class="place">
-												<label for="ort" class="control-label">Ort</label> <input
-													type="text" class="form-control " name="ort"
+												<label for="place" class="control-label">Ort</label> <input
+													type="text" class="form-control " name="place"
 													placeholder="Ort" required="required">
 											</div>
 										</div>
-										<label for="Beschreibung" class="control-label">Beschreibung</label> <textarea
-													 class="form-control" name="beschreibung"
+										<label for="description" class="control-label">Beschreibung</label> <textarea
+													 class="form-control" name="description"
 													placeholder="Beschreibung" ></textarea>
 													
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
 											<div class="input-group date begindate" id="datetimepicker2">
 
-												<input readonly type="text" class="form-control" /> <span
+												<input readonly type="text" class="form-control" name="startdate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -127,7 +127,7 @@
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="12:00"><span class="input-group-addon">
+													value="12:00" name="starttime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
@@ -135,7 +135,7 @@
 										<label for="begindate" class="control-label">Endzeitpunkt</label>
 										<div id="multidivcontainer" class="form-group">
 											<div class="input-group date begindate" id="datetimepicker1">
-												<input readonly type="text" class="form-control" /> <span
+												<input readonly type="text" class="form-control" name="enddate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -143,15 +143,15 @@
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="13:00"><span class="input-group-addon">
+													value="13:00" name="endtime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
 										</div>
-										<label for="kategorie" class="control-label">Kategorie</label>
+										<label for="category" class="control-label">Kategorie</label>
 										<div id="multidivcontainer">
 											<select class="selectpicker selec"
-												title='Kategorie auswählen'>
+												title='Kategorie auswählen' name="category">
 												<option disabled="disabled" selected="selected"
 													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
 													auswählen</option>
@@ -167,7 +167,7 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schließen</button>
-										<button type="button" type="submit" class="btn btn-primary">Termin
+										<button type="submit" class="btn btn-primary">Termin
 											erstellen</button>
 									</div>
 								</form>
