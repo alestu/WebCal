@@ -70,145 +70,27 @@
 				<ul class="nav navbar-nav">
 					<!-- Account administration -->
 					<li class="dropdown">
-<<<<<<< HEAD
-						<!-- Anzeigename --> <a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"><%=userName%>
-							<span class="caret"></span></a>
-=======
 						<!-- Username -->
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<%=userName%>
 							<span class="caret"></span>
 						</a>
->>>>>>> refs/remotes/origin/master
 						<ul class="dropdown-menu" role="menu">
-<<<<<<< HEAD
 							<!-- Funktionen -->
-=======
-							<!-- Functions -->
-							<li><a href="#">Accountverwaltung</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Importieren</a></li>
-							<li><a href="#">Exportieren</a></li>
-							<li class="divider"></li>
->>>>>>> refs/remotes/origin/master
 							<li><a href="#">Abmelden</a></li>
 						</ul>
 					</li>
 					<li>
 					</li>
-<<<<<<< HEAD
-					<!-- Termin erstellen -->
-					<li>
-						<button class="btn btn-default navbar-btn" data-toggle="modal"
-							data-target="#myModal">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						</button>
-						<form method="post" action="http://localhost:8080/WebCalendarApplication/CreateEvent">
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-							aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-										<h4 class="modal-title" id="myModalLabel">Neuer Termin</h4>
-									</div>
-									<div class="modal-body">
-										<div id="multidivcontainer">
-											<div class="title">
-											
-												<label for="title" class="control-label">Titel</label> <input
-													type="text" class="form-control " name="title"
-													placeholder="Titel" required id="txtEventTitle">
-											</div>
-											<div class="place">
-												<label for="ort" class="control-label">Ort</label> <input
-													id="txtEventPlace" type="text" class="form-control " name="ort"
-													placeholder="Ort" required>
-											</div>
-										</div>
-										<label for="begindate" class="control-label">Startzeitpunkt</label>
-										<div id="multidivcontainer">
-											<div class="input-group date begindate" id="txtEventBeginDate">
-												<input   name="startdatum" readonly type="text" class="form-control" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-											</div>
-											<div class="starttime input-group clockpicker "
-												data-autoclose="true" id="txtEventBeginTime" >
-												<input name="startzeit" readonly id="test" type="text" class="form-control "
-													><span class="input-group-addon">
-													<span class="glyphicon glyphicon-time"></span>
-												</span>
-											</div>
-										</div>
-										<label for="begindate" class="control-label">Endzeitpunkt</label>
-										<div id="multidivcontainer" class="form-group">
-											<div class="input-group date begindate" id="txtEventEndDate">
-												<input name="enddatum" readonly type="text" class="form-control" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-											</div>
-											<div class="starttime input-group clockpicker "
-												data-autoclose="true" id="txtEventEndTime">
-												<input name="endzeit" readonly type="text" class="form-control "
-													value="13:00"><span class="input-group-addon">
-													<span class="glyphicon glyphicon-time"></span>
-												</span>
-											</div>
-										</div>
-										<label for="kategorie" class="control-label">Kategorie</label>
-										<div id="multidivcontainer">
-											<select name="kategorie" class="selectpicker selec"
-												title='Kategorie auswählen' id="kategorie">
-												<option disabled="disabled" selected="selected"
-													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
-													auswählen</option>
-												<option data-icon="glyphicon glyphicon-home">Privat</option>
-												<option data-icon="glyphicon glyphicon-briefcase">Geschfätlich</option>
-												<option data-icon="glyphicon glyphicon-bookmark">Hobby</option>
-												<option data-icon="glyphicon glyphicon-gift">Geburtstag</option>
-												<option data-icon="glyphicon glyphicon-flag">Feiertag</option>
-												<option data-icon="glyphicon glyphicon-plane">Urlaub</option>
-											</select>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Schließen</button>
-										<button type="submit" class="btn btn-primary">Termin
-											erstellen</button>
-											
-									</div>
-								</div>
-							</div>
-						</div>
-						</form>
-					</li>
-					<li>
-					<button class="btn btn-default navbar-btn" id="btnEditEvent" >
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					</button>
-					</li>
-=======
+					
 					<!-- Create event -->
 					<%@include file="CreateEventModal.jsp" %>
->>>>>>> refs/remotes/origin/master
 				</ul>
 				
 				<!-- Search -->
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group has-feedback-left has-feedback">
-<<<<<<< HEAD
 						<input type="text" class="form-control" placeholder="Suche" onkeydown="if (event.keyCode == 13) return false">
-=======
-						<input type="text" class="form-control" placeholder="Suche"/>
->>>>>>> refs/remotes/origin/master
 						<i class="form-control-feedback glyphicon glyphicon-search"></i>
 					</div>
 				</form>
@@ -262,28 +144,15 @@
 <script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
 
-<<<<<<< HEAD
-<script src="../fullcalendar/lib/moment.min.js"></script>
-<script src="../fullcalendar/fullcalendar.js"></script>
-<script src="../fullcalendar/lang-all.js"></script>
+<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+
+<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
+<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
+<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
+
 <script>
 $(document).ready(function(){
-    $("#calendar").fullCalendar({
-        lang: "de",
-        aspectRatio: 2.5,
-        header: false
-    });
-    
-    $("#agendaDay").click(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaDay");
-    });
-    $("#agendaWeek").click(function(){
-    	$("#calendar").fullCalendar("changeView", "agendaWeek");
-    });
-    $("#month").click(function(){
-    	$("#calendar").fullCalendar("changeView", "month");
-    });
-    
     $("#btnEditEvent").click(function()
     {
     	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
@@ -312,22 +181,7 @@ $(document).ready(function(){
             	  alert(strArr[5]);
             	   $("#kategorie".val(strArr[5]));
              })
-             
-        
-    	
     });
-    
-    
-    
-    
 });
 </script>
-=======
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
-
-<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
-<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
-<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
-<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
->>>>>>> refs/remotes/origin/master
 </html>
