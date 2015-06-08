@@ -205,7 +205,7 @@ else {
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schließen</button>
-										<button type="button" type="submit" class="btn btn-primary" onclick="return Validate()">Termin
+										<button  type="submit" class="btn btn-primary" onclick="return Validate()">Termin
 											erstellen</button>
 									</div>
 								</form>

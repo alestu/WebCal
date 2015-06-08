@@ -57,13 +57,8 @@ public class GetEvents extends HttpServlet {
 			 e.event_id = Integer.parseInt(rs.getString("event_id"));
 			 e.title = rs.getString("title");
 			 e.description = rs.getString("description");
-<<<<<<< HEAD
 			 //e.event_begin = rs.getString("event_begin");
 			 //e.event_end = rs.getString("event_end");
-=======
-		//	 e.event_begin = rs.getString("event_begin");
-		//	 e.event_end = rs.getString("event_end");
->>>>>>> branch 'master' of https://github.com/alestu/WebCal.git
 			 e.place =  rs.getString("place");
 			 
 			}

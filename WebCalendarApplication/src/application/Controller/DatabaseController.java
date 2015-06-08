@@ -6,6 +6,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import application.Model.Event;
 import application.Model.User;
@@ -190,6 +195,23 @@ public class DatabaseController
 		{		    
 			String query = "SELECT * FROM event WHERE event.user_id ="+user_id+";";			
 			ResultSet res = stmt.executeQuery(query);
+			ArrayList<Event> events = new ArrayList<Event>();
+			
+			//Aus den selektierten Daten ein Event-Objekt bauen und der Event-Liste hinzufügen
+			//Anschließend wird die ArrayList zurückgegeben
+			while (res.next()) 
+			{
+				Event e = new Event();
+				e.event_id = Integer.parseInt(res.getString("event_id"));
+				e.title = res.getString("title");
+				e.description = res.getString("description");
+				e.place = res.getString("place");
+				e.category = res.getString("category");
+				e.user_id = Integer.parseInt(res.getString("user_id"));
+				e.event_begin = res.getString("event_begin");
+				e.event_end = res.getString("event_end");
+		    }
+			
 			return res;
 			
 		}
