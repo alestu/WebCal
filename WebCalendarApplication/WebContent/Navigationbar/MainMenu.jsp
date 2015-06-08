@@ -80,15 +80,8 @@
 							<li><a href="#">Abmelden</a></li>
 						</ul>
 					</li>
-					<li>
-					</li>
-					
-					<!-- Create event -->
-					<%@include file="CreateEventModal.jsp" %>
-					
-					</li>
 
-					<!-- Termin erstellen -->
+					<!-- Create Event -->
 					<li>
 						<button class="btn btn-default navbar-btn" data-toggle="modal"
 							data-target="#myModal">
@@ -97,7 +90,7 @@
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
-								<div class="modal-content">
+								<form class="modal-content" method="post" action="http://localhost:8080/WebCalendarApplication/CreateEvent">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
@@ -177,7 +170,7 @@
 										<button type="button" type="submit" class="btn btn-primary">Termin
 											erstellen</button>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</li>
