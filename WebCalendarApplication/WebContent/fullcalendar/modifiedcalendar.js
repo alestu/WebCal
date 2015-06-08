@@ -6,10 +6,12 @@
 $(document).ready(function(){
     $("#calendar").fullCalendar({
         dayClick: function(date, jsEvent, view){
-        	$("#datepicker0").datepicker("setDate", date);
-        	$("#datepicker1").datepicker("setDate", date);
-                    	
-            $("#createEvent").modal("show");
+        	//$("#datetimepicker2").datepicker("setDate", date.format());
+        	//$("#datetimepicker1").datepicker("setDate", date.format());
+        	$("#datetimepicker2").datepicker("setDate", new Date());
+        	$("#datetimepicker1").datepicker("setDate", new Date());
+            
+            $("#myModal").modal("show");
         },
         lang: "de",
         aspectRatio: 2.5,
