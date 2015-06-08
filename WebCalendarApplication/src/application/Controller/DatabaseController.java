@@ -280,7 +280,7 @@ public class DatabaseController
 		try
 		{
 			stmt = conn.createStatement();
-			String query = "SELECT * FROM event WHERE event_id ="+DatabaseController.activeUser.user_id+";";		
+			String query = "SELECT * FROM event WHERE user_id ="+DatabaseController.activeUser.user_id+";";		
 			
 			ResultSet res = stmt.executeQuery(query);
 			
