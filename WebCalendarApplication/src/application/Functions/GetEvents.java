@@ -56,9 +56,19 @@ public class GetEvents extends HttpServlet {
 			 application.Model.Event e = new application.Model.Event();
 			 e.event_id = Integer.parseInt(rs.getString("event_id"));
 			 e.title = rs.getString("title");
+<<<<<<< HEAD
 			 e.description = rs.getString("description");
+=======
+			 e.description = rs.getString("description");
+
+>>>>>>> branch 'master' of https://github.com/alestu/WebCal.git
 			 //e.event_begin = rs.getString("event_begin");
+<<<<<<< HEAD
 			 //e.event_end = rs.getString("event_end");
+=======
+			 //e.event_end = rs.getString("event_end");
+
+>>>>>>> branch 'master' of https://github.com/alestu/WebCal.git
 			 e.place =  rs.getString("place");
 			 
 			}

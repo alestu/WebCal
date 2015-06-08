@@ -226,11 +226,9 @@ public class DatabaseController
 		//Antonio Nunziata
 		try
 		{
-			//Java Calendar in passendes SQL DateTime-Format umwandeln
-		    java.sql.Date begin = new java.sql.Date(e.event_begin.getTime().getTime());
-		    java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());
+			
 		    
-			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+begin+"','"+end+"',"+e.full_day+",'"+e.category+"');";
+			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"');";
 			stmt.execute(query);
 			System.out.println("Inserting was successfully");
 			return true;
@@ -246,11 +244,9 @@ public class DatabaseController
 	{		
 		//Antonio Nunziata		 
 		try
-		{
-			java.sql.Date begin = new java.sql.Date(e.event_begin.getTime().getTime());
-			java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());   
+		{  
 			 
-			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+begin+"',event_end='"+end+"' WHERE event_id="+e.event_id+";";
+			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+e.event_begin+"',event_end='"+e.event_end+"' WHERE event_id="+e.event_id+";";
 			stmt.execute(query);
 			return true;
 			
