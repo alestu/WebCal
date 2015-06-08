@@ -16,11 +16,9 @@ if(red != null && !red.isEmpty())
 	System.out.println("red ist nicht null und nicht leer");
 	if(red.compareTo("true")==0)
 	{
-			
 		System.out.println("red ist true");
 		email = session.getAttribute("email").toString();
 		password = session.getAttribute("password_").toString();
-		
 	}
 	
 }
@@ -28,30 +26,25 @@ else if (login != null && !login.isEmpty() )
 {
 	if(login.compareTo("true") == 0)
 	{
-	email = request.getParameter("email");
-	password = request.getParameter("password");
-	session.setAttribute("email", email);
-	session.setAttribute("password_", password);
+		email = request.getParameter("email");
+		password = request.getParameter("password");
+		session.setAttribute("email", email);
+		session.setAttribute("password_", password);
 	}
 }
 else
 {
 	if(null == session.getAttribute("email")){
-		%>
-		
-		<jsp:forward page="../Login/login.jsp" />
-		<%
-		}
-		else
-		{
-			email = session.getAttribute("email").toString();
-			password = session.getAttribute("password_").toString();
-			
-		}
-	
-	
+	%>
+	<jsp:forward page="../Login/login.jsp" />
+	<%
+	}
+	else
+	{
+		email = session.getAttribute("email").toString();
+		password = session.getAttribute("password_").toString();
+	}
 }
-
 
 String userName = "not-assigned";
 DatabaseController controller = new DatabaseController();
@@ -284,34 +277,25 @@ else {
 <script>
 $(document).ready(function()
 {
-	var events[];
-	
 	<%
 		//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
 		Event[] events = controller.selectEvents().toArray(new Event[0]);
-		/*Event[] events = new Event[3];
-		events[0] = new Event();
-		events[0].event_id = 1;
-		events[0].title = "Ein erster Termin";
-		events[0].description = "";
-		events[0].place = "Zu Hause";
-		events[0].category = "Privat";
-		events[0].full_day = false;
-		events[0].event_begin = "09/Jun/2015 12:00";
-		events[0].event_end = "09/Jun/2015 13:00";
-		events[0].user_id = 3;
-		
-		out.println(events[0].title);*/
-		
 		int i = 0;
+		System.out.println("var events[];");
 		for(i = 0; i < events.length; i++)
 		{
-			
+			%>
+			events.push({
+					"id": "<%=events[i].event_id%>",
+					"title": "<%=events[i].title%>",
+					"fullDay": "<%=events[i].full_day%>",
+					"start": "<%=events[i].event_begin%>",
+					"end": "<%=events[i].event_end%>",
+					"description": "<%=events[i].description%>"
+			});<%
 		}
 	%>
 	
-	//alert(events[0].title);
-
 	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
 	$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
 	{
