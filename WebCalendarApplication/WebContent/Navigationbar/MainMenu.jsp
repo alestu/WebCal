@@ -165,7 +165,7 @@ else {
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="12:00" name="startzeit"><span class="input-group-addon">
+													value="12:00" name="starttime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
@@ -173,7 +173,7 @@ else {
 										<label for="begindate" class="control-label">Endzeitpunkt</label>
 										<div id="multidivcontainer" class="form-group">
 											<div class="input-group date begindate" id="datetimepicker1">
-												<input readonly type="text" class="form-control" name="enddatum"/> <span
+												<input readonly type="text" class="form-control" name="enddate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>

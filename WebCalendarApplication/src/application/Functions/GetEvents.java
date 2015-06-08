@@ -41,42 +41,8 @@ public class GetEvents extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer userId = DatabaseController.activeUser.user_id;
 		
-		ResultSet rs = controller.selectEvents(userId);
-		int rowcount = 0;
-		try 
-		{
-			if (rs.last()) 
-			{
-			  rowcount = rs.getRow();
-			  rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-			}
-		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try 
-		{
-			while (rs.next()) 
-			{
-			 application.Model.Event e = new application.Model.Event();
-			 e.event_id = Integer.parseInt(rs.getString("event_id"));
-			 e.title = rs.getString("title");
-			 e.description = rs.getString("description");
-
-			 //e.event_begin = rs.getString("event_begin");
-			 //e.event_end = rs.getString("event_end");
-
-			 e.place =  rs.getString("place");
-			 
-			}
-		} 
-		catch (SQLException e) 
-		{
-			
-			e.printStackTrace();
-		}
+		
+		
 	}
 }

@@ -12,8 +12,8 @@ public class Event
 	public String description;
 	public String place;
 	public String category;
-	public Calendar event_begin;
-	public Calendar event_end;
+	public String event_begin;
+	public String event_end;
 	public boolean full_day;
 	public int user_id;	//Foreign Key
 	

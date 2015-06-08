@@ -1,5 +1,43 @@
 $(document).ready(function()
 {
+	$("#txtTitle").change(function()
+			{
+		if($("#txtTitle").val() != "")
+		{
+			$("#txtTitle").removeClass("eventError");
+		}
+		else
+		{
+			$("#txtTitle").addClass("eventError");
+		}
+		
+	});
+	
+	$("#txtDescription").change(function()
+			{
+		if($("#txtDescription").val() != "")
+		{
+			$("#txtDescription").removeClass("eventError");
+		}
+		else
+		{
+			$("#txtDescription").addClass("eventError");
+		}
+		
+	});
+	
+	$("#txtPlace").change(function()
+			{
+		if($("#txtPlace").val() != "")
+		{
+			$("#txtPlace").removeClass("eventError");
+		}
+		else
+		{
+			$("#txtPlace").addClass("eventError");
+		}
+		
+	});
 	
 });
 
@@ -32,11 +70,11 @@ function Validate()
 	
 	if(error)
 	{
-		return true;
+		return false;
 	}
 	else
 	{	
-		return false;
+		return true;
 	}
 	
 
