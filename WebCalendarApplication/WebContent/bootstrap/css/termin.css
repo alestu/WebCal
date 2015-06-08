@@ -67,3 +67,10 @@ textarea {
 .selec {
 	
 }
+
+.eventError
+{
+	border-style: solid;
+	border-color:#E60000;
+	border-width:2px;
+}

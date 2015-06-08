@@ -83,10 +83,8 @@
 					<li>
 					</li>
 					
-					<!-- Create event -->
-					<%@include file="CreateEventModal.jsp" %>
 					
-					</li>
+			
 
 					<!-- Termin erstellen -->
 					<li>
@@ -110,17 +108,17 @@
 											<div class="title">
 												<label for="title" class="control-label">Titel</label> <input
 													type="text" class="form-control " name="title"
-													placeholder="Titel" required="required">
+													placeholder="Titel" required="required" id="txtTitle">
 											</div>
 											<div class="place">
 												<label for="ort" class="control-label">Ort</label> <input
 													type="text" class="form-control " name="ort"
-													placeholder="Ort" required="required">
+													placeholder="Ort" required="required" id="txtPlace">
 											</div>
 										</div>
 										<label for="Beschreibung" class="control-label">Beschreibung</label> <textarea
 													 class="form-control" name="beschreibung"
-													placeholder="Beschreibung" ></textarea>
+													placeholder="Beschreibung" id="txtDescription" ></textarea>
 													
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
@@ -174,7 +172,7 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schließen</button>
-										<button type="button" type="submit" class="btn btn-primary">Termin
+										<button type="button" type="submit" class="btn btn-primary" onclick="return Validate()">Termin
 											erstellen</button>
 									</div>
 								</div>
@@ -239,6 +237,7 @@
 <script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
+<script type="text/javascript" src="../bootstrap/js/EventValidation.js"></script>
 
 <script type="text/javascript" src="../bootstrap/js/termin.js"></script>
 
@@ -248,7 +247,8 @@
 <script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
 
 <script>
-$(document).ready(function(){
+$(document).ready(function()
+{
 	
 	//HIER DIE TERMINID !!!!!!
     $("#btnEditEvent").click(function()
