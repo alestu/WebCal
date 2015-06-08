@@ -25,25 +25,50 @@ public class DatabaseController
 	 String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
 	 Connection conn;
 	 Statement stmt; 
+	 public static User activeUser;
 	
 	
 
 	public DatabaseController()
 	{
+		activeUser = new User();
 		LoadDatabase();
 		//conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
 	}
 	
+	
 	/*Querys*/
+	private void setUserData(String email)
+	{
+		System.out.println("User Objekt bauen");
+		try 
+		{
+			String sqlString = "SELECT * from users WHERE email = '"+ email +"';";		
+			ResultSet res = stmt.executeQuery(sqlString);
+			if(res.first())
+			{
+				System.out.println("User Daten aus DB gelesen");
+				DatabaseController.activeUser.first_name = res.getString("first_name");
+				DatabaseController.activeUser.last_name = res.getString("last_name");
+				DatabaseController.activeUser.password_ = res.getString("password_");
+				DatabaseController.activeUser.email = email;
+				DatabaseController.activeUser.user_id = Integer.parseInt(res.getString("user_id"));
+				System.out.println("Objekt erfolgreich zusammengestellt!");
+				stmt.close();
+			}
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public boolean checkEmailAndPassword(String email,String password_) 
 	{
 		try
 		{
 		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";		
-		
-	
-		
-		
 		ResultSet res = stmt.executeQuery(sqlString);
 		if(!res.first())
 		{
@@ -53,7 +78,9 @@ public class DatabaseController
 		}
 		else
 		{
-			stmt.close();
+			System.out.println("Login war erfolgreich!");
+			setUserData(email); //Objekt bauen
+			stmt.close();			
 			return true;
 		}
 		
@@ -94,20 +121,96 @@ public class DatabaseController
 		{
 			System.out.println("ExceptionMessage: " +ex);
 			return false;
+		}	
+	}
+	public ResultSet selectEventsWithFilter(int user_id, String filter)
+	{
+		//Antonio Nunziata
+		try
+		{		    
+			String query = "SELECT * FROM event WHERE event.user_id ="+user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
+			ResultSet res = stmt.executeQuery(query);
+			return res;
+			
+		}
+		catch(Exception ex)
+		{ 
+			System.out.println("Failed selecting events");
+			return null;
 		}
 		
-		
-		
+	}
+	public boolean deleteEvent(int event_id)
+	{
+		//Antonio Nunziata
+		try
+		{
+			String query = "DELETE FROM event WHERE event_id="+event_id+";";
+			stmt.execute(query);
+			return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Failed deleting event");
+			return false;
+		}
+	}
+	public String selectEvent(int event_id)
+	{
+		//Antonio Nunziata
+		/*Mithilfe des übergebenen Terminschlüssel (event_id) sollen zugehörige Daten eines Termins selektiert werden
+		 * Diese werden zu einem einzigen String zusammengesetzt und als Rückgabewert gesendet.
+		 * Die einzelnen Werte werden voneinander mit dem Seperator ';' getrennt.
+		 * Später kann eine Funktion diese auswerten und einzelne Strings daraus produzieren*/
+		try
+		{		    
+			String query = "SELECT title, description, place,event_begin,event_end,full_day,category FROM event WHERE event.event_id ="+event_id+";";			
+			ResultSet res = stmt.executeQuery(query);
+			
+			if(res.first())
+			{
+				System.out.println("Event gefunden!");				
+				String data = res.getString("title")+";"+res.getString("description")+";"+res.getString("place")+";"+res.getString("event_begin")+";"+res.getString("event_end")+";"+res.getString("full_day")+";"+res.getString("category");
+				return data;
+			
+			}
+			return null;
+			
+		}
+		catch(Exception ex)
+		{ 
+			System.out.println("Failed selecting events");
+			return null;
+		}
+	}
+	public ResultSet selectEvents(int user_id)
+	{
+		//Antonio Nunziata
+		try
+		{		    
+			String query = "SELECT * FROM event WHERE event.user_id ="+user_id+";";			
+			ResultSet res = stmt.executeQuery(query);
+			return res;
+			
+		}
+		catch(Exception ex)
+		{ 
+			System.out.println("Failed selecting events");
+			return null;
+		}
 	}
 	public boolean insertEvent(Event e)
 	{
-		//ToDo's:
-		//Evtl. die Attribute "event_end" und "event_begin" passend umwandeln (Date/String)?
-		//Event Objekt zusammenstellen und Methodenaufruf ausführen
+		//Antonio Nunziata
 		try
 		{
-			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"');";
+			//Java Calendar in passendes SQL DateTime-Format umwandeln
+		    java.sql.Date begin = new java.sql.Date(e.event_begin.getTime().getTime());
+		    java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());
+		    
+			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+begin+"','"+end+"',"+e.full_day+",'"+e.category+"');";
 			stmt.execute(query);
+			System.out.println("Inserting was successfully");
 			return true;
 			
 		}
@@ -118,13 +221,14 @@ public class DatabaseController
 		}
 	}
 	public boolean updateEvent(Event e)
-	{
-		//ToDo's:
-		//Anfangs- und Endzeit eines Events der Query hinzufügen
-		//Event Objekt zusammenstellen und Methodenaufruf ausführen
+	{		
+		//Antonio Nunziata		 
 		try
 		{
-			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"' WHERE event_id="+e.event_id+";";
+			java.sql.Date begin = new java.sql.Date(e.event_begin.getTime().getTime());
+			java.sql.Date end = new java.sql.Date(e.event_end.getTime().getTime());   
+			 
+			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+begin+"',event_end='"+end+"' WHERE event_id="+e.event_id+";";
 			stmt.execute(query);
 			return true;
 			
@@ -138,7 +242,8 @@ public class DatabaseController
 	}
 	public boolean RegisterUser(User u)
 	{
-		
+		//Alessandro Stuckenschnieder
+		//Ergänzt: Antonio Nunziata
 		try
 		{		
 			int address_id;			
@@ -168,18 +273,13 @@ public class DatabaseController
 		{	System.out.println(ex);
 			return false;
 			
-		}
-		
-		
-		
+		}	
 	}
 
 	public String getFullUsernameByEmail(String email) throws SQLException
-
 	{
-		try{
-	
-		
+		try
+		{
 		conn.setCatalog(database);
 		Statement stmt = conn.createStatement();
 		ResultSet res = stmt.executeQuery("select first_name,last_name from users where email = '"+email+"';");

@@ -50,15 +50,16 @@ public class RegisterAccount extends HttpServlet {
 		
 		if(!controller.isEmailAlreadyinUse(newUser.email))
 		{
-		if(controller.RegisterUser(newUser))
-		{
-			response.sendRedirect("Login/login.jsp?reg=true&user="+ newUser.email);
-		}
-		else
-		{
-			
-			response.sendRedirect("Register/createAccount.jsp?reg=false");
-		}
+			if(controller.RegisterUser(newUser))
+			{
+				
+				response.sendRedirect("Login/login.jsp?reg=true&user="+ newUser.email);
+			}
+			else
+			{
+				
+				response.sendRedirect("Register/createAccount.jsp?reg=false");
+			}
 		}
 		else
 		{
