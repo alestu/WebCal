@@ -6,12 +6,7 @@
 $(document).ready(function(){
     $("#calendar").fullCalendar({
         dayClick: function(date, jsEvent, view){
-        	//$("#datetimepicker2").datepicker("setDate", date.format());
-        	//$("#datetimepicker1").datepicker("setDate", date.format());
-        	$("#datetimepicker2").datepicker("setDate", new Date());
-        	$("#datetimepicker1").datepicker("setDate", new Date());
-            
-            $("#myModal").modal("show");
+        	$("#myModal").modal("show");
         },
         lang: "de",
         aspectRatio: 2.5,
@@ -19,6 +14,8 @@ $(document).ready(function(){
     });
     
 	$("#title").text($("#calendar").fullCalendar("getView").title);
+	$("#datetimepicker2").datepicker("setDate", new Date());
+	$("#datetimepicker1").datepicker("setDate", new Date());
     
     $("#agendaDay").click(function(){
     	$("#calendar").fullCalendar("changeView", "agendaDay");
