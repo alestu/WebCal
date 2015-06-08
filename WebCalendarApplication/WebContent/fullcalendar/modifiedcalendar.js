@@ -5,6 +5,15 @@
 
 $(document).ready(function(){
     $("#calendar").fullCalendar({
+        dayClick: function(date, jsEvent, view){
+            /*$("#datepicker0").data({date: date.format()});
+            $("#datepicker0").datepicker("update");
+            $("#datepicker1").data({date: date.format()});
+            $("#datepicker1").datepicker("update");*/
+        	$("#datepicker0").datepicker("setDate", date);
+                    	
+            $("#createEvent").modal("show");
+        },
         lang: "de",
         aspectRatio: 2.5,
         header: false

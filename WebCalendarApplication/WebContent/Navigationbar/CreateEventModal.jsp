@@ -1,41 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!---------------------------
 	Modal dialog for event creation.
 	Created by Alessandro.
 ----------------------------->
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <li>
-	<button class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal">
+	<button class="btn btn-default navbar-btn" data-toggle="modal" data-target="#createEvent">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 	</button>
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="createEvent" tabindex="-1" role="dialog" aria-labelledby="createEventLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Neuer Termin</h4>
+					<h4 class="modal-title" id="createEventLabel">Neuer Termin</h4>
 				</div>
 				<div class="modal-body">
 					<div id="multidivcontainer">
-						<div class="title">
+						<div class="eventtitle">
 							<label for="title" class="control-label">Titel</label>
 							<input type="text" class="form-control " name="title" placeholder="Titel" required="required"/>
 						</div>
-						<div class="place">
+						<div class="eventplace">
 							<label for="ort" class="control-label">Ort</label>
 							<input type="text" class="form-control " name="ort" placeholder="Ort" required="required"/>
 						</div>
 					</div>
 					<label for="begindate" class="control-label">Startzeitpunkt</label>
 					<div id="multidivcontainer">
-						<div class="input-group date begindate" id="datetimepicker2">
+						<div class="input-group date begindate" id="datepicker0">
 							<input readonly type="text" class="form-control"/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
-						<div class="starttime input-group clockpicker" data-autoclose="true">
+						<div class="starttime input-group clockpicker" data-autoclose="true" id="clockpicker0">
 							<input readonly type="text" class="form-control" value="12:00"/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
@@ -44,13 +44,13 @@
 					</div>
 					<label for="begindate" class="control-label">Endzeitpunkt</label>
 					<div id="multidivcontainer" class="form-group">
-						<div class="input-group date begindate" id="datetimepicker1">
+						<div class="input-group date begindate" id="datepicker1">
 							<input readonly type="text" class="form-control"/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
-						<div class="starttime input-group clockpicker" data-autoclose="true">
+						<div class="starttime input-group clockpicker" data-autoclose="true" id="clockpicker1">
 							<input readonly type="text" class="form-control" value="13:00"/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>

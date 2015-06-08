@@ -19,19 +19,14 @@
 <jsp:forward page="../Navigationbar/MainMenu.jsp" />
 <%
 	}
+
 boolean userNameExist = false;
 String preMail = request.getParameter("user");						
 if(preMail != null && !preMail.isEmpty())
 {
-	
 	userNameExist= true;
-	
-
 }
-
-
 %>
-
 
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
 <title>Login</title>
