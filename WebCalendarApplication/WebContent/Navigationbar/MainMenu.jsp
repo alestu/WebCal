@@ -285,15 +285,35 @@ $(document).ready(function()
 
     	
     	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
-		$.post("http://localhost:8080/WebCalendarApplication/GetEvents",
-		{}).done(function( data ) 
-     	 	{
-      	 		alert("callback");
-      	 		
-      	 		/*Termine grafisch darstellen*/
-      	 		 
-			})
-             
+    		$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
+    		{
+    	
+                 eventID:1, //EventID eritteln
+   
+             }).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
+           	 {
+            	 alert("callback");
+            	 $('#myModal').modal('show');
+            	 var strArr = data.split(';');
+            	 //String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
+             	$("#txtEventTitle").val(strArr[0]);
+            	//Beschreibung hinzufügen
+             	$("#txtEventPlace").val(strArr[2]);
+            	
+            	/*Das Datum und die Zeit sind als ein String zusammengepackt
+            	  Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
+            	  dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen*/
+            	  var beginDatetime = strArr[3].split(" ");
+            	  $("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
+            	  //$("#txtEventBeginTime").clockpicker()
+            	   alert(strArr[3]);
+            	  var endDatetime = strArr[4].split(" ");
+            	  $("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
+            	  //Fullday ...
+            	  alert(strArr[5]);
+            	   $("#kategorie".val(strArr[5]));
+             })
+   
 });
 </script>
 </html>
