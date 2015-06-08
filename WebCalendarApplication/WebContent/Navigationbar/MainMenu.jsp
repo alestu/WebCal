@@ -70,7 +70,7 @@
 				<ul class="nav navbar-nav">
 					<!-- Account administration -->
 					<li class="dropdown">
-						<!-- Username -->
+					<!-- Username -->
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<%=userName%>
 							<span class="caret"></span>
@@ -85,6 +85,8 @@
 					
 					<!-- Create event -->
 					<%@include file="CreateEventModal.jsp" %>
+					
+					</li>
 				</ul>
 				
 				<!-- Search -->
@@ -153,10 +155,14 @@
 
 <script>
 $(document).ready(function(){
+	
+	//HIER DIE TERMINID !!!!!!
     $("#btnEditEvent").click(function()
     {
+    	
     	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
-    		$.post("http://localhost:8080/WebCalendarApplication/EditEvent",{
+    		$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
+    		{
                  eventID:1, //EventID eritteln
    
              }).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
