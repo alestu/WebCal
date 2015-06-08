@@ -56,13 +56,15 @@ public class GetEvents extends HttpServlet {
 			 application.Model.Event e = new application.Model.Event();
 			 e.event_id = Integer.parseInt(rs.getString("event_id"));
 			 e.title = rs.getString("title");
+
 			 e.description = rs.getString("description");
 
-			 //e.event_begin = rs.getString("event_begin");
-			 //e.event_end = rs.getString("event_end");
+			 e.description = rs.getString("description");
 
-			 e.place =  rs.getString("place");
-			 
+			 //github.com/alestu/WebCal.git
+			 //e.event_begin = rs.getString("event_begin");
+
+
 			}
 		} 
 		catch (SQLException e) 

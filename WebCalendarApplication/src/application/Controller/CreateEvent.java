@@ -74,8 +74,8 @@ public class CreateEvent extends HttpServlet {
 		e.title = request.getParameter("title");
 		e.description = request.getParameter("description");
 		e.place = request.getParameter("ort");
-		e.event_begin = GetDateFormat(request.getParameter("startdatum"),request.getParameter("startzeit"));
-		e.event_end = GetDateFormat(request.getParameter("enddatum"),request.getParameter("endzeit"));
+		e.event_begin = request.getParameter("startdatum")+" "+request.getParameter("startzeit");
+		e.event_end = request.getParameter("enddatum")+" "+request.getParameter("endzeit");
 		e.full_day = false; //Nachträglich ändern
 		e.category  = request.getParameter("kategorie");
 		
