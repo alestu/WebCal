@@ -288,8 +288,8 @@ $(document).ready(function()
 	
 	<%
 		//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
-		//Event[] events = controller.selectEvents().toArray(new Event[0]);
-		Event[] events = new Event[3];
+		Event[] events = controller.selectEvents().toArray(new Event[0]);
+		/*Event[] events = new Event[3];
 		events[0] = new Event();
 		events[0].event_id = 1;
 		events[0].title = "Ein erster Termin";
@@ -301,19 +301,12 @@ $(document).ready(function()
 		events[0].event_end = "09/Jun/2015 13:00";
 		events[0].user_id = 3;
 		
-		out.println(events[0].title);
+		out.println(events[0].title);*/
 		
 		int i = 0;
 		for(i = 0; i < events.length; i++)
 		{
-			%>events[<%=i%>] = {
-					id: "<%=events[i].event_id%>",
-					title: "<%=events[i].title%>",
-					fullDay: "<%=events[i].full_day%>",
-					start: "<%=events[i].event_begin%>",
-					end: "<%=events[i].event_end%>",
-					description: "<%=events[i].description%>"
-			};<%
+			
 		}
 	%>
 	

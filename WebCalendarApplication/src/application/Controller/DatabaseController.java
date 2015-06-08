@@ -1,6 +1,5 @@
 package application.Controller;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,25 +14,20 @@ import java.util.Date;
 import application.Model.Event;
 import application.Model.User;
 
-
-
-
 /*Singleton DatabaseController */
-public class DatabaseController 
+public class DatabaseController
 {
-	 String connectionUrl = "jdbc:mysql://localhost/";
-	 String connectionUser = "root";
-	 String connectionPassword = "";
-	 String database = "webcalendar";
-	 String webcal_table = "ConnectorJ/webcal_table.sql";
-	 String webcal_db = "ConnectorJ/webcal_db.sql";
-	 String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
-	 Connection conn;
-	 Statement stmt; 
-	 public static User activeUser;
+	String connectionUrl = "jdbc:mysql://localhost/";
+	String connectionUser = "root";
+	String connectionPassword = "";
+	String database = "webcalendar";
+	String webcal_table = "ConnectorJ/webcal_table.sql";
+	String webcal_db = "ConnectorJ/webcal_db.sql";
+	String webcal_testdata = "ConnectorJ/webcal_testdata.sql";
+	Connection conn;
+	Statement stmt;
+	public static User activeUser;
 	
-	
-
 	public DatabaseController()
 	{
 		activeUser = new User();
@@ -41,10 +35,10 @@ public class DatabaseController
 		//conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
 	}
 	
-	
 	/*Querys*/
 	private void setUserData(String email) throws SQLException
 	{
+		stmt = conn.createStatement();
 		System.out.println("User Objekt bauen");
 		String sqlString = "SELECT * from users WHERE email = '"+ email +"';";		
 		ResultSet res = null;
@@ -82,17 +76,16 @@ public class DatabaseController
 	}
 	public boolean checkEmailAndPassword(String email,String password_) throws SQLException 
 	{
+		stmt = conn.createStatement();
 		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";
 		ResultSet res = null;
 		try
 		{
-				
 			res = stmt.executeQuery(sqlString);
 			if(!res.first())
 			{
 				stmt.close();
 				return false;
-				
 			}
 			else
 			{
@@ -115,12 +108,14 @@ public class DatabaseController
 		    {
 		        stmt.close();
 		    }
-		  }
+		}
+		
 		return false;
 	}
 	
 	public boolean isEmailAlreadyinUse(String email) throws SQLException
 	{
+		stmt = conn.createStatement();
 		ResultSet res =null;
 		String sqlString = "select email from users where email = '"+ email +"';";		
 		try
@@ -149,10 +144,11 @@ public class DatabaseController
 		    {
 		        stmt.close();
 		    }
-		  }
+		}
 	}
 	public ResultSet selectEventsWithFilter(int user_id, String filter) throws SQLException
 	{
+		stmt = conn.createStatement();
 		String query = "SELECT * FROM event WHERE event.user_id ="+user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
 		ResultSet res = null;
 		
@@ -161,7 +157,6 @@ public class DatabaseController
 		{		    
 			res = stmt.executeQuery(query);
 			return res;
-			
 		}
 		catch(Exception ex)
 		{ 
@@ -177,8 +172,7 @@ public class DatabaseController
 		    {
 		        stmt.close();
 		    }
-		  }
-		
+		}
 	}
 	public boolean deleteEvent(int event_id)
 	{
@@ -214,8 +208,8 @@ public class DatabaseController
 				return data;
 			
 			}
-			return null;
 			
+			return null;
 		}
 		catch(Exception ex)
 		{ 
@@ -230,7 +224,8 @@ public class DatabaseController
 	{
 		//Antonio Nunziata
 		try
-		{		    
+		{
+			stmt = conn.createStatement();
 			String query = "SELECT * FROM users;";		
 			System.out.println("before query");
 			ResultSet res = stmt.executeQuery(query);
@@ -239,7 +234,7 @@ public class DatabaseController
 			
 			//Aus den selektierten Daten ein Event-Objekt bauen und der Event-Liste hinzufügen
 			//Anschließend wird die ArrayList zurückgegeben
-			while (res.next()) 
+			while (res.next())
 			{
 				Event e = new Event();
 				e.event_id = Integer.parseInt(res.getString("event_id"));
@@ -254,7 +249,6 @@ public class DatabaseController
 		    }
 			
 			return events;
-			
 		}
 		catch(Exception ex)
 		{ 
@@ -271,7 +265,6 @@ public class DatabaseController
 			stmt.execute(query);
 			System.out.println("Inserting was successfully");
 			return true;
-			
 		}
 		catch(Exception ex)
 		{ 
@@ -283,8 +276,7 @@ public class DatabaseController
 	{		
 		//Antonio Nunziata		 
 		try
-		{  
-			 
+		{
 			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+e.event_begin+"',event_end='"+e.event_end+"' WHERE event_id="+e.event_id+";";
 			stmt.execute(query);
 			return true;
@@ -295,7 +287,6 @@ public class DatabaseController
 			System.out.println("Failed updating event");
 			return false;
 		}
-		
 	}
 	public boolean RegisterUser(User u)
 	{
@@ -327,7 +318,6 @@ public class DatabaseController
 		catch(Exception ex)
 		{	System.out.println(ex);
 			return false;
-			
 		}	
 	}
 
@@ -335,28 +325,25 @@ public class DatabaseController
 	{
 		try
 		{
-		conn.setCatalog(database);
-		Statement stmt = conn.createStatement();
-		ResultSet res = stmt.executeQuery("select first_name,last_name from users where email = '"+email+"';");
-		res.next();
-		
-		return String.format("%s %s", res.getString(1), res.getString(2)); 
-		
-		
-		}catch(SQLException ex)
+			conn.setCatalog(database);
+			stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery("select first_name,last_name from users where email = '"+email+"';");
+			res.next();
+			
+			return String.format("%s %s", res.getString(1), res.getString(2));
+		}
+		catch(SQLException ex)
 		{
 			
-			
 		}
-		return "";
 		
+		return "";
 	}
 	
 	
 	/*Database Loading and Init */
 	public void LoadDatabase() {
 		LoadDriver();
-		
 		
 		try {
 			conn = DriverManager.getConnection(connectionUrl,
@@ -377,14 +364,12 @@ public class DatabaseController
 				stmt.close();
 				conn.setCatalog(database);
 				stmt = conn.createStatement();
-
 			} else {
 
 				stmt.close();
 				conn.setCatalog(database);
 				System.out.println(database + " successfully loaded.\n");
 				stmt = conn.createStatement();
-
 			}
 
 		} catch (SQLException ex) {
@@ -393,74 +378,77 @@ public class DatabaseController
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
-
 	}
 
 	public void LoadDriver()
 	{
-		try {
+		try
+		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			System.out.println(ex);
 		}
 	}
 	
 	public void ConnectDB() throws SQLException
 	{		
-		try{
+		try
+		{
 			 conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
-	
 		}
 		catch(SQLException ex)
 		{
 			System.err.println("Failed to Connect: "+ex);
-			
 		}
-		
 	}
 	
 	public void InitDatabase(Statement stmt, Connection conn)
 			throws SQLException {
-		try {
+		try
+		{
 			System.out.println("Executing Script for Database creation..."
 					+ String.valueOf(executeDBScript(webcal_db, stmt)));
 
 			stmt.close();
-
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			System.out.println(ex);
 		}
-
 	}
 
 	public void InitTables(Statement stmt, Connection conn)
-			throws SQLException {
-
-		try {
-
+			throws SQLException
+	{
+		try
+		{
 			conn.setCatalog(database);
 			stmt = conn.createStatement();
 			System.out.println("Executing Script for tables... "
 					+ String.valueOf(executeDBScript(webcal_table, stmt)));
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			System.out.println(ex);
 		}
-
 	}
 
 	public void InitTestData(Statement stmt, Connection conn)
-			throws SQLException {
-		try {
-
+			throws SQLException
+	{
+		try
+		{
 			conn.setCatalog(database);
 			stmt = conn.createStatement();
 			System.out.println("Executing Script for Testdata... "
 					+ String.valueOf(executeDBScript(webcal_testdata, stmt)));
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			System.out.println(ex);
 		}
-
 	}
 
 	public boolean executeDBScript(String SqlFile, Statement stmt)
@@ -469,14 +457,15 @@ public class DatabaseController
 		String s = new String();
 		StringBuffer sb = new StringBuffer();
 
-		try {
+		try
+		{
 			FileReader fr = new FileReader(new File(SqlFile));
 			// be sure to not have line starting with "--" or "/*" or any other
 			// non aplhabetical character
 
 			BufferedReader br = new BufferedReader(fr);
 
-			while ((s = br.readLine()) != null) {
+			while ((s = br.readLine()) != null){
 				sb.append(s);
 			}
 			br.close();
@@ -495,18 +484,17 @@ public class DatabaseController
 				}
 			}
 			scriptIsExecuted = true;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("*** Error : " + e.toString());
 			System.out.println("*** ");
 			System.out.println("*** Error : ");
 			e.printStackTrace();
-			System.out
-					.println("################################################");
+			System.out.println("################################################");
 			System.out.println(sb.toString());
 		}
 
 		return scriptIsExecuted;
-
 	}
-
 }
