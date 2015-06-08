@@ -150,14 +150,14 @@ else {
 											</div>
 										</div>
 										<label for="description" class="control-label">Beschreibung</label> <textarea
-													 class="form-control" name="description"
+													 class="form-control" required="required" name="description"
 													placeholder="Beschreibung" id="txtDescription" ></textarea>
 													
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
 											<div class="input-group date begindate" id="datetimepicker2">
 
-												<input readonly type="text" class="form-control" name="startdate"/> <span
+												<input readonly type="text" class="form-control" name="startdatum"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -165,7 +165,7 @@ else {
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="12:00" name="starttime"><span class="input-group-addon">
+													value="12:00" name="startzeit"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
@@ -173,7 +173,7 @@ else {
 										<label for="begindate" class="control-label">Endzeitpunkt</label>
 										<div id="multidivcontainer" class="form-group">
 											<div class="input-group date begindate" id="datetimepicker1">
-												<input readonly type="text" class="form-control" name="enddate"/> <span
+												<input readonly type="text" class="form-control" name="enddatum"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -181,7 +181,7 @@ else {
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="13:00" name="endtime"><span class="input-group-addon">
+													value="13:00" name="endzeit"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
@@ -205,7 +205,7 @@ else {
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schließen</button>
-										<button type="button" type="submit" class="btn btn-primary" onclick="return Validate()">Termin
+										<button type="submit" class="btn btn-primary" >Termin
 											erstellen</button>
 									</div>
 								</form>

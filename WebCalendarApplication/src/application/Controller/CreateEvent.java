@@ -82,5 +82,7 @@ public class CreateEvent extends HttpServlet {
 		System.out.println("Writing event in database ...");
 		DatabaseController controller = new DatabaseController();
 		controller.insertEvent(e); //Datenobjekt übergeben
+		
+		
 	}
 }
