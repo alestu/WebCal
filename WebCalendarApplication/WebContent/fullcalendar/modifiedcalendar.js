@@ -11,6 +11,7 @@ $(document).ready(function(){
             $("#datepicker1").data({date: date.format()});
             $("#datepicker1").datepicker("update");*/
         	$("#datepicker0").datepicker("setDate", date);
+        	$("#datepicker1").datepicker("setDate", date);
                     	
             $("#createEvent").modal("show");
         },

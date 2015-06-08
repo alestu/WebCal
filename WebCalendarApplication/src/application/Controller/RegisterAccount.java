@@ -65,7 +65,5 @@ public class RegisterAccount extends HttpServlet {
 			response.sendRedirect("Register/createAccount.jsp?reg=alreadyinuse");
 			
 		}
-		
-
 	}
 }
