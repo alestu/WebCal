@@ -22,10 +22,19 @@ textarea {
 	padding:0;
 }
 
+.enddate {
+	max-width:180px;
+	float:left;
+	padding:0;
+}
+
 .starttime input {
 	text-align: center;
 }
 .begindate input {
+	text-align: center;
+}
+.enddate input {
 	text-align: center;
 }
 
@@ -34,6 +43,10 @@ textarea {
 	cursor:pointer;
 }
 .begindate:hover
+{
+	cursor:pointer;
+}
+.enddate:hover
 {
 	cursor:pointer;
 }
