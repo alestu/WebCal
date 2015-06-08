@@ -69,18 +69,16 @@ public class CreateEvent extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		//Termin Objekt zusammenbauen
-		Event e = new Event();
-		
+		Event e = new Event();		
 		e.title = request.getParameter("title");
 		e.description = request.getParameter("description");
-		e.place = request.getParameter("ort");
+		e.place = request.getParameter("place");
 		e.event_begin = request.getParameter("startdatum")+" "+request.getParameter("startzeit");
 		e.event_end = request.getParameter("enddatum")+" "+request.getParameter("endzeit");
 		e.full_day = false; //Nachträglich ändern
-		e.category  = request.getParameter("kategorie");
-		
-		
-		
+		e.category  = request.getParameter("category");
+		e.user_id = DatabaseController.activeUser.user_id;
+			
 		System.out.println("Writing event in database ...");
 		DatabaseController controller = new DatabaseController();
 		controller.insertEvent(e); //Datenobjekt übergeben
