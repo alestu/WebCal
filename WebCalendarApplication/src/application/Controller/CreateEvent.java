@@ -83,6 +83,6 @@ public class CreateEvent extends HttpServlet {
 		DatabaseController controller = new DatabaseController();
 		controller.insertEvent(e); //Datenobjekt übergeben
 		
-		
+		response.sendRedirect("Navigationbar/MainMenu.jsp");
 	}
 }
