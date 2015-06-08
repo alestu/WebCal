@@ -188,7 +188,7 @@ public class DatabaseController
 			return null;
 		}
 	}
-	public ResultSet selectEvents(int user_id)
+	public ArrayList<Event> selectEvents(int user_id)
 	{
 		//Antonio Nunziata
 		try
@@ -210,10 +210,10 @@ public class DatabaseController
 				e.user_id = Integer.parseInt(res.getString("user_id"));
 				e.event_begin = res.getString("event_begin");
 				e.event_end = res.getString("event_end");
-				
+				events.add(e);
 		    }
 			
-			return res;
+			return events;
 			
 		}
 		catch(Exception ex)
