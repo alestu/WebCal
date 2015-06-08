@@ -226,10 +226,10 @@ public class DatabaseController
 		try
 		{
 			stmt = conn.createStatement();
-			String query = "SELECT * FROM users;";		
-			System.out.println("before query");
+			String query = "SELECT * FROM event WHERE event_id ="+DatabaseController.activeUser.user_id+";";		
+			
 			ResultSet res = stmt.executeQuery(query);
-			System.out.println("after query");
+			
 			ArrayList<Event> events = new ArrayList<Event>();
 			
 			//Aus den selektierten Daten ein Event-Objekt bauen und der Event-Liste hinzufügen
@@ -247,12 +247,15 @@ public class DatabaseController
 				e.event_end = res.getString("event_end");
 				events.add(e);
 		    }
-			
+			System.out.println("Selecting events was successfully");
 			return events;
 		}
 		catch(Exception ex)
 		{ 
 			System.out.println("Failed selecting events");
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
+			System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
 			return null;
 		}
 	}
