@@ -36,6 +36,16 @@ public class DatabaseController
 	}
 	
 	/*Querys*/
+	/**
+	* Das Setzen der Daten des angemeldeten Benutzers
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param email Mithilfe der Email sollen Daten des eingeloggten Nutzers selektiert werden
+	* 
+	*/
 	private void setUserData(String email) throws SQLException
 	{
 		stmt = conn.createStatement();
@@ -146,10 +156,21 @@ public class DatabaseController
 		    }
 		}
 	}
-	public ResultSet selectEventsWithFilter(int user_id, String filter) throws SQLException
+	/**
+	* Das Selektieren/Erhalten von speziellen Terminen (Suchfunktion)
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param filter Das Schlüsselwort, wonach die Termine gesucht werden sollen
+	* 
+	* @return Alle Termine die zum Schlüsselwort passen
+	*/
+	public ResultSet selectEventsWithFilter(String filter) throws SQLException
 	{
 		stmt = conn.createStatement();
-		String query = "SELECT * FROM event WHERE event.user_id ="+user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
+		String query = "SELECT * FROM event WHERE event.user_id ="+DatabaseController.activeUser.user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
 		ResultSet res = null;
 		
 		//Antonio Nunziata
@@ -174,6 +195,17 @@ public class DatabaseController
 		    }
 		}
 	}
+	/**
+	* Das Löschen eines ausgewählten Termins aus der Datenbank
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param event_id Der Primary Key des des Termins
+	* 
+	* @return Ein bool der aussagt, ob das Löschen erfolgreich war
+	*/
 	public boolean deleteEvent(int event_id)
 	{
 		//Antonio Nunziata
@@ -189,6 +221,17 @@ public class DatabaseController
 			return false;
 		}
 	}
+	/**
+	* Das Selektieren/Erhalten der Daten eines ausgewählten Termins
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param event_id Der Primary Key eines Keys, mit dem der zugehörige Termin selektiert wird
+	* 
+	* @return Ein String bestehend aus den Werten der Attribute des selektierten Termins
+	*/
 	public String selectEvent(int event_id)
 	{
 		//Antonio Nunziata
@@ -220,6 +263,17 @@ public class DatabaseController
 			return null;
 		}
 	}
+	/**
+	* Das Selektieren/Erhalten aller Termine des angemeldeten Benutzers um diese grafisch darstellen zu können
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* 
+	* 
+	* @return Eine Liste bestehend allen Terminen des eingeloggten Benutzers
+	*/
 	public ArrayList<Event> selectEvents()
 	{
 		//Antonio Nunziata
@@ -259,6 +313,17 @@ public class DatabaseController
 			return null;
 		}
 	}
+	/**
+	* Das Schreiben eines Termins in die Datenbank
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param e Das Termin-Objekt mit das in die Datenbank geschrieben werden soll
+	* 
+	* @return Ein bool der aussagt, ob das Einfügen erfolgreich war oder nicht
+	*/
 	public boolean insertEvent(Event e)
 	{
 		//Antonio Nunziata
@@ -275,9 +340,19 @@ public class DatabaseController
 			return false;
 		}
 	}
+	/**
+	* Das Aktualisieren/Updaten von einem bearbeiteten Termin
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param e Das Termin-Objekt mit neuen/veränderten Daten
+	* 
+	* @return Ein bool der aussagt, ob das UPDATE erfolgreich war oder nicht
+	*/
 	public boolean updateEvent(Event e)
-	{		
-		//Antonio Nunziata		 
+	{			 
 		try
 		{
 			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+e.event_begin+"',event_end='"+e.event_end+"' WHERE event_id="+e.event_id+";";
@@ -294,7 +369,6 @@ public class DatabaseController
 	public boolean RegisterUser(User u)
 	{
 		//Alessandro Stuckenschnieder
-		//Ergänzt: Antonio Nunziata
 		try
 		{		
 			int address_id;			
