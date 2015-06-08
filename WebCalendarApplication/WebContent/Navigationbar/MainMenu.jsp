@@ -300,13 +300,24 @@ $(document).ready(function()
 		events[0].event_begin = "09/Jun/2015 12:00";
 		events[0].event_end = "09/Jun/2015 13:00";
 		events[0].user_id = 3;
-	
+		
+		out.println(events[0].title);
+		
 		int i = 0;
 		for(i = 0; i < events.length; i++)
 		{
-			%>events[<%=i%>] = <%=events[i]%>;<%
+			%>events[<%=i%>] = {
+					id: "<%=events[i].event_id%>",
+					title: "<%=events[i].title%>",
+					fullDay: "<%=events[i].full_day%>",
+					start: "<%=events[i].event_begin%>",
+					end: "<%=events[i].event_end%>",
+					description: "<%=events[i].description%>"
+			};<%
 		}
 	%>
+	
+	//alert(events[0].title);
 
 	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
 	$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
