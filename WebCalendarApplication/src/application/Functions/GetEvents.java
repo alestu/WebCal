@@ -30,7 +30,7 @@ public class GetEvents extends HttpServlet {
     }
     
     public void doPost(HttpServletRequest req, HttpServletResponse resp)throws IOException {
-        String name=req.getParameter("name");
+        String name = req.getParameter("name");
         System.out.println("ajax:" + name);
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
