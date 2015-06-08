@@ -1,6 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.tomcat.jni.Time"%>
 <%@page import="com.sun.org.apache.xml.internal.utils.StringComparable"%>
 <%@page import="application.Controller.DatabaseController"%>
+<%@page import="application.Model.*"%>
 <%@page import="java.sql.*"%>
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
@@ -282,38 +284,58 @@ else {
 <script>
 $(document).ready(function()
 {
+	var events[];
+	
+	<%
+		//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
+		//Event[] events = controller.selectEvents().toArray(new Event[0]);
+		Event[] events = new Event[3];
+		events[0] = new Event() {
+			event_id = 1;
+			title = "Ein erster Termin";
+			place = "Zu Hause",
+			description = "",
+			category = "Privat",
+			fullDay = false,
+			event_begin = "09/Jun/2015 12:00",
+			event_end = "09/Jun/2015 13:00",
+			user_id = 3
+		};
+	
+		/*int i = 0;
+		for(i = 0; i < events.length; i++)
+		{
+			
+		}*/
+	%>
 
-    	
-    	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
-    		$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
-    		{
-    	
-                 eventID:1, //EventID eritteln
-   
-             }).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
-           	 {
-            	 alert("callback");
-            	 $('#myModal').modal('show');
-            	 var strArr = data.split(';');
-            	 //String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
-             	$("#txtEventTitle").val(strArr[0]);
-            	//Beschreibung hinzufügen
-             	$("#txtEventPlace").val(strArr[2]);
-            	
-            	/*Das Datum und die Zeit sind als ein String zusammengepackt
-            	  Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
-            	  dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen*/
-            	  var beginDatetime = strArr[3].split(" ");
-            	  $("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
-            	  //$("#txtEventBeginTime").clockpicker()
-            	   alert(strArr[3]);
-            	  var endDatetime = strArr[4].split(" ");
-            	  $("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
-            	  //Fullday ...
-            	  alert(strArr[5]);
-            	   $("#kategorie".val(strArr[5]));
-             })
-   
+	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
+	$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
+	{
+		eventID:1, //EventID eritteln
+	}).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
+     	{
+      		alert("callback");
+       	$('#myModal').modal('show');
+       	var strArr = data.split(';');
+       	//String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
+        $("#txtEventTitle").val(strArr[0]);
+       	//Beschreibung hinzufügen
+        $("#txtEventPlace").val(strArr[2]);
+       	
+       	/*Das Datum und die Zeit sind als ein String zusammengepackt
+       	  Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
+       	  dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen*/
+       	var beginDatetime = strArr[3].split(" ");
+       	$("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
+       	//$("#txtEventBeginTime").clockpicker()
+       	 alert(strArr[3]);
+       	var endDatetime = strArr[4].split(" ");
+       	$("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
+       	//Fullday ...
+       	alert(strArr[5]);
+       	$("#kategorie".val(strArr[5]));
+   	});
 });
 </script>
 </html>

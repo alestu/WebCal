@@ -4,7 +4,9 @@ import java.awt.Event;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,15 +31,14 @@ public class GetEvents extends HttpServlet {
         controller = new DatabaseController();
     }
     
-    public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException 
+    public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException 
     {
-    	 Integer eventID=Integer.parseInt(request.getParameter("eventID"));
- 	    DatabaseController dbCon = new DatabaseController();
- 	    String data = dbCon.selectEvent(eventID);
- 	   
-         response.setContentType("text/plain");
-         response.setCharacterEncoding("UTF-8");
-         response.getWriter().write(data);
+    	ArrayList<Event> eventlist = new ArrayList<Event>();
+    	
+    	request.setAttribute("availableItems", eventlist);
+        String nextPage = "/MainMenu.jsp";
+        RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+        rd.forward(request, response);
     }
 
 	/**

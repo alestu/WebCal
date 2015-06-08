@@ -11,18 +11,7 @@ $(document).ready(function(){
         lang: "de",
         aspectRatio: 2.5,
         header: false
-    });
-    
-    function getEvents(){
-    	$.post("http://localhost:8080/WebCalendarApplication/GetEvents", function(responseText){
-    		alert(responseText);
-    	}).done(function(data) {
-             alert("name: " + data);
-        });
-    };
-    
-    getEvents();
-    
+    });    
     
 	$("#title").text($("#calendar").fullCalendar("getView").title);
 	$("#datetimepicker2").datepicker("setDate", new Date());
