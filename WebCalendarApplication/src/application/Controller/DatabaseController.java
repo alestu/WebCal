@@ -188,12 +188,12 @@ public class DatabaseController
 			return null;
 		}
 	}
-	public ArrayList<Event> selectEvents(int user_id)
+	public ArrayList<Event> selectEvents()
 	{
 		//Antonio Nunziata
 		try
 		{		    
-			String query = "SELECT * FROM event WHERE event.user_id ="+user_id+";";			
+			String query = "SELECT * FROM event WHERE event.user_id ="+DatabaseController.activeUser.user_id+";";			
 			ResultSet res = stmt.executeQuery(query);
 			ArrayList<Event> events = new ArrayList<Event>();
 			

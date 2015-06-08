@@ -27,6 +27,7 @@ public class EditEvent extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		System.out.println("Editiere...");
 		//Antonio Nunziata
 	    Integer eventID=Integer.parseInt(request.getParameter("eventID"));
 	    DatabaseController dbCon = new DatabaseController();

@@ -29,12 +29,15 @@ public class GetEvents extends HttpServlet {
         controller = new DatabaseController();
     }
     
-    public void doPost(HttpServletRequest req, HttpServletResponse resp)throws IOException {
-        String name = req.getParameter("name");
-        System.out.println("ajax:" + name);
-        resp.setContentType("text/plain");
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(name);
+    public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException 
+    {
+    	 Integer eventID=Integer.parseInt(request.getParameter("eventID"));
+ 	    DatabaseController dbCon = new DatabaseController();
+ 	    String data = dbCon.selectEvent(eventID);
+ 	   
+         response.setContentType("text/plain");
+         response.setCharacterEncoding("UTF-8");
+         response.getWriter().write(data);
     }
 
 	/**
