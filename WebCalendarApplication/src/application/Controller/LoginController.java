@@ -39,13 +39,10 @@ public class LoginController extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-
-		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 		DatabaseController controller = new DatabaseController();
-		
 		out.write(email+ "    "+  password+"  ...."+ String.valueOf(controller.checkEmailAndPassword("Alessandros@live.de", "Passwort123")));
 		
 		

@@ -83,18 +83,13 @@
 					<li class="dropdown">
 						<!-- Anzeigename --> <a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false"><%=userName%>
-
-
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<!-- Funktionen -->
-							<li><a href="#">Accountverwaltung</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Importieren</a></li>
-							<li><a href="#">Exportieren</a></li>
-							<li class="divider"></li>
 							<li><a href="#">Abmelden</a></li>
 						</ul>
+					</li>
+					<li>
 					</li>
 					<!-- Termin erstellen -->
 					<li>
@@ -102,6 +97,7 @@
 							data-target="#myModal">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 						</button>
+						<form method="post" action="http://localhost:8080/WebCalendarApplication/CreateEvent">
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -118,42 +114,41 @@
 											<div class="title">
 												<label for="title" class="control-label">Titel</label> <input
 													type="text" class="form-control " name="title"
-													placeholder="Titel" required="required">
+													placeholder="Titel" required id="txtEventTitle">
 											</div>
 											<div class="place">
 												<label for="ort" class="control-label">Ort</label> <input
-													type="text" class="form-control " name="ort"
-													placeholder="Ort" required="required">
+													id="txtEventPlace" type="text" class="form-control " name="ort"
+													placeholder="Ort" required>
 											</div>
 										</div>
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
-											<div class="input-group date begindate" id="datetimepicker2">
-
-												<input readonly type="text" class="form-control" /> <span
+											<div class="input-group date begindate" id="txtEventBeginDate">
+												<input   name="startdatum" readonly type="text" class="form-control" /> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
 											</div>
 											<div class="starttime input-group clockpicker "
-												data-autoclose="true">
-												<input readonly type="text" class="form-control "
-													value="12:00"><span class="input-group-addon">
+												data-autoclose="true" id="txtEventBeginTime" >
+												<input name="startzeit" readonly id="test" type="text" class="form-control "
+													><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
 										</div>
 										<label for="begindate" class="control-label">Endzeitpunkt</label>
 										<div id="multidivcontainer" class="form-group">
-											<div class="input-group date begindate" id="datetimepicker1">
-												<input readonly type="text" class="form-control" /> <span
+											<div class="input-group date begindate" id="txtEventEndDate">
+												<input name="enddatum" readonly type="text" class="form-control" /> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
 											</div>
 											<div class="starttime input-group clockpicker "
-												data-autoclose="true">
-												<input readonly type="text" class="form-control "
+												data-autoclose="true" id="txtEventEndTime">
+												<input name="endzeit" readonly type="text" class="form-control "
 													value="13:00"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
@@ -161,8 +156,8 @@
 										</div>
 										<label for="kategorie" class="control-label">Kategorie</label>
 										<div id="multidivcontainer">
-											<select class="selectpicker selec"
-												title='Kategorie auswählen'>
+											<select name="kategorie" class="selectpicker selec"
+												title='Kategorie auswählen' id="kategorie">
 												<option disabled="disabled" selected="selected"
 													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
 													auswählen</option>
@@ -178,12 +173,19 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Schließen</button>
-										<button type="button" type="submit" class="btn btn-primary">Termin
+										<button type="submit" class="btn btn-primary">Termin
 											erstellen</button>
+											
 									</div>
 								</div>
 							</div>
 						</div>
+						</form>
+					</li>
+					<li>
+					<button class="btn btn-default navbar-btn" id="btnEditEvent" >
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
 					</li>
 				</ul>
 
@@ -203,7 +205,7 @@
 				<!-- Suche -->
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group has-feedback-left has-feedback">
-						<input type="text" class="form-control" placeholder="Suche">
+						<input type="text" class="form-control" placeholder="Suche" onkeydown="if (event.keyCode == 13) return false">
 						<i class="form-control-feedback glyphicon glyphicon-search"></i>
 					</div>
 				</form>
@@ -216,6 +218,7 @@
 	
 	<div id="calendar"></div>
 </body>
+
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/termin.js"></script>
@@ -247,6 +250,43 @@ $(document).ready(function(){
     $("#month").click(function(){
     	$("#calendar").fullCalendar("changeView", "month");
     });
+    
+    $("#btnEditEvent").click(function()
+    {
+    	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
+    		$.post("http://localhost:8080/WebCalendarApplication/EditEvent",{
+                 eventID:1, //EventID eritteln
+   
+             }).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
+           	 {
+            	 $('#myModal').modal('show');
+            	 var strArr = data.split(';');
+            	 //String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
+             	$("#txtEventTitle").val(strArr[0]);
+            	//Beschreibung hinzufügen
+             	$("#txtEventPlace").val(strArr[2]);
+            	
+            	/*Das Datum und die Zeit sind als ein String zusammengepackt
+            	  Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
+            	  dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen*/
+            	  var beginDatetime = strArr[3].split(" ");
+            	  $("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
+            	  //$("#txtEventBeginTime").clockpicker()
+            	   alert(strArr[3]);
+            	  var endDatetime = strArr[4].split(" ");
+            	  $("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
+            	  //Fullday ...
+            	  alert(strArr[5]);
+            	   $("#kategorie".val(strArr[5]));
+             })
+             
+        
+    	
+    });
+    
+    
+    
+    
 });
 </script>
 </html>
