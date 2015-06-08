@@ -38,6 +38,7 @@ public class CreateEvent extends HttpServlet {
     {
     	//Antonio Nunziata
 		 System.out.println("Datum Eingang: " + date);
+		 System.out.println("Zeit Eingang: " + time);
 		 try
 		 {
 			 //Zeitangabe wird in zwei Strings (Stunden & Minuten) geteilt.
@@ -46,15 +47,15 @@ public class CreateEvent extends HttpServlet {
 			 int minutes = Integer.parseInt(hoursMinutes[1]);
 						 
 			 SimpleDateFormat curFormater = new SimpleDateFormat("dd/MMM/yyyy"); //Eingangsformat
-			 Date dateObj = curFormater.parse(date); 
+			 Date dateObj = curFormater.parse(date);
 			 Calendar calendar = Calendar.getInstance();
-			 calendar.setTime(dateObj); //Datumobjekt in ein Calendarobjekt 
-			 calendar.set(Calendar.HOUR_OF_DAY, hours);
-			 calendar.set(Calendar.MINUTE, minutes);
-			 System.out.println("Datum Ausgang: " + calendar.getTime());
+			 calendar.setTime(dateObj); //Datumobjekt in ein Calendarobjekt
+			 calendar.set(Calendar.HOUR_OF_DAY,hours);
+			 calendar.set(Calendar.MINUTE,minutes);
+			 System.out.println("Datum Ausgang: "+calendar.getTime());
 			 return calendar;
 	      } 
-		 catch (ParseException pe)
+		 catch (ParseException pe) 
 		 {
 			 pe.printStackTrace();
 	     }
@@ -72,15 +73,14 @@ public class CreateEvent extends HttpServlet {
 		
 		e.title = request.getParameter("title");
 		e.description = request.getParameter("description");
-		e.place = request.getParameter("place");
-		e.event_begin = GetDateFormat(request.getParameter("startdate"), request.getParameter("starttime"));
-		e.event_end = GetDateFormat(request.getParameter("enddate"), request.getParameter("endtime"));
+		e.place = request.getParameter("ort");
+		e.event_begin = GetDateFormat(request.getParameter("startdatum"),request.getParameter("startzeit"));
+		e.event_end = GetDateFormat(request.getParameter("enddatum"),request.getParameter("endzeit"));
 		e.full_day = false; //Nachträglich ändern
-		e.category  = request.getParameter("category");
+		e.category  = request.getParameter("kategorie");
 			
 		System.out.println("Writing event in database ...");
 		DatabaseController controller = new DatabaseController();
 		controller.insertEvent(e); //Datenobjekt übergeben
 	}
-
 }
