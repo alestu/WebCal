@@ -4,31 +4,64 @@
 <%@page import="java.sql.*"%>
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
-	String email = "";
-	String password = "";
+String email ="";
+String password ="";
 
-	if (!request.equals(null)) {
-		email = request.getParameter("email");
-		password = request.getParameter("password");
-		session.setAttribute("email", email);
-		session.setAttribute("password_", password);
-	}
-	else {
+String red = request.getParameter("red");	
+String login = request.getParameter("login");
+if(red != null && !red.isEmpty())
+{
+	System.out.println("red ist nicht null und nicht leer");
+	if(red.compareTo("true")==0)
+	{
+			
+		System.out.println("red ist true");
 		email = session.getAttribute("email").toString();
 		password = session.getAttribute("password_").toString();
+		
 	}
-
-	String userName = "not-assigned";
-	DatabaseController controller = new DatabaseController();
-
-	if (controller.checkEmailAndPassword(email, password)) {
-		userName = controller.getFullUsernameByEmail(email);
+	
+}
+else if (login != null && !login.isEmpty() )
+{
+	if(login.compareTo("true") == 0)
+	{
+	email = request.getParameter("email");
+	password = request.getParameter("password");
+	session.setAttribute("email", email);
+	session.setAttribute("password_", password);
 	}
-	else {
+}
+else
+{
+	if(null == session.getAttribute("email")){
+		%>
+		
+		<jsp:forward page="../Login/login.jsp" />
+		<%
+		}
+		else
+		{
+			email = session.getAttribute("email").toString();
+			password = session.getAttribute("password_").toString();
+			
+		}
+	
+	
+}
+
+
+String userName = "not-assigned";
+DatabaseController controller = new DatabaseController();
+
+if (controller.checkEmailAndPassword(email, password)) {
+	userName = controller.getFullUsernameByEmail(email);
+}
+else {
 %>
 <jsp:forward page="../Login/login.jsp" />
 <%
-	}
+}
 %>
 
 <!DOCTYPE html>
@@ -77,7 +110,7 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<!-- Funktionen -->
-							<li><a href="#">Abmelden</a></li>
+							<li><a href="http://localhost:8080/WebCalendarApplication/Login/login.jsp?logout=true">Abmelden</a></li>
 						</ul>
 					</li>
 					<li>
@@ -86,7 +119,7 @@
 					
 			
 
-					<!-- Termin erstellen -->
+					<!-- Create Event -->
 					<li>
 						<button class="btn btn-default navbar-btn" data-toggle="modal"
 							data-target="#myModal">
@@ -95,7 +128,7 @@
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
-								<div class="modal-content">
+								<form class="modal-content" method="post" action="http://localhost:8080/WebCalendarApplication/CreateEvent">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
@@ -111,20 +144,20 @@
 													placeholder="Titel" required="required" id="txtTitle">
 											</div>
 											<div class="place">
-												<label for="ort" class="control-label">Ort</label> <input
-													type="text" class="form-control " name="ort"
+												<label for="place" class="control-label">Ort</label> <input
+													type="text" class="form-control " name="place"
 													placeholder="Ort" required="required" id="txtPlace">
 											</div>
 										</div>
-										<label for="Beschreibung" class="control-label">Beschreibung</label> <textarea
-													 class="form-control" name="beschreibung"
+										<label for="description" class="control-label">Beschreibung</label> <textarea
+													 class="form-control" name="description"
 													placeholder="Beschreibung" id="txtDescription" ></textarea>
 													
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
 											<div class="input-group date begindate" id="datetimepicker2">
 
-												<input readonly type="text" class="form-control" /> <span
+												<input readonly type="text" class="form-control" name="startdate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -132,7 +165,7 @@
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="12:00"><span class="input-group-addon">
+													value="12:00" name="starttime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
@@ -140,7 +173,7 @@
 										<label for="begindate" class="control-label">Endzeitpunkt</label>
 										<div id="multidivcontainer" class="form-group">
 											<div class="input-group date begindate" id="datetimepicker1">
-												<input readonly type="text" class="form-control" /> <span
+												<input readonly type="text" class="form-control" name="enddate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -148,15 +181,15 @@
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="13:00"><span class="input-group-addon">
+													value="13:00" name="endtime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>
 										</div>
-										<label for="kategorie" class="control-label">Kategorie</label>
+										<label for="category" class="control-label">Kategorie</label>
 										<div id="multidivcontainer">
 											<select class="selectpicker selec"
-												title='Kategorie auswählen'>
+												title='Kategorie auswählen' name="category">
 												<option disabled="disabled" selected="selected"
 													data-icon="glyphicon glyphicon-tags">&nbsp;Kategorie
 													auswählen</option>
@@ -175,7 +208,7 @@
 										<button type="button" type="submit" class="btn btn-primary" onclick="return Validate()">Termin
 											erstellen</button>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</li>
