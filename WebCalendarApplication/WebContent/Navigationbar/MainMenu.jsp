@@ -64,11 +64,11 @@ else {
 <head>
 <meta charset="utf-8">
 <title>WebCal</title>
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-datepicker.css"/>
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css"/>
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/github.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-clockpicker.min.css"/>
 
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/termin.css"/>
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/navigation.css"/>
@@ -79,14 +79,13 @@ else {
 
 <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
 <script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
-<script type="text/javascript" src="../bootstrap/js/EventValidation.js"></script>
+<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
 
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+<script type="text/javascript" src="../bootstrap/js/EventValidation.js"></script>
 
 <script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
 <script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
@@ -183,9 +182,6 @@ $(document).ready(function(){
 					<li>
 					</li>
 					
-					
-			
-
 					<!-- Create Event -->
 					<li>
 						<button class="btn btn-default navbar-btn" data-toggle="modal"
@@ -217,7 +213,7 @@ $(document).ready(function(){
 											</div>
 										</div>
 										<label for="description" class="control-label">Beschreibung</label> <textarea
-													 class="form-control" required="required" name="description"
+													 class="form-control" name="description"
 													placeholder="Beschreibung" id="txtDescription" ></textarea>
 													
 										<label for="begindate" class="control-label">Startzeitpunkt</label>

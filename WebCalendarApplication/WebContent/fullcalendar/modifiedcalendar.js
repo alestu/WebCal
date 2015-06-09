@@ -8,6 +8,9 @@ $(document).ready(function(){
         dayClick: function(date, jsEvent, view){
         	$("#myModal").modal("show");
         },
+        eventClick: function(date, jsEvent, view){
+        	
+        },
         lang: "de",
         aspectRatio: 2.5,
         header: false
