@@ -1,6 +1,7 @@
 package application.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +32,13 @@ public class EditEvent extends HttpServlet
 		//Antonio Nunziata
 	    Integer eventID=Integer.parseInt(request.getParameter("eventID"));
 	    DatabaseController dbCon = new DatabaseController();
-	    String data = dbCon.selectEvent(eventID);
+	    String data = null;
+		try {
+			data = dbCon.selectEvent(eventID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");

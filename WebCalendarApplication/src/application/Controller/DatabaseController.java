@@ -31,7 +31,12 @@ public class DatabaseController
 	public DatabaseController()
 	{
 		activeUser = new User();
-		LoadDatabase();
+		try {
+			LoadDatabase();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//conn = DriverManager.getConnection(connectionUrl,connectionUser,connectionPassword);
 	}
 	
@@ -48,12 +53,13 @@ public class DatabaseController
 	*/
 	private void setUserData(String email) throws SQLException
 	{
-		stmt = conn.createStatement();
 		System.out.println("User Objekt bauen");
 		String sqlString = "SELECT * from users WHERE email = '"+ email +"';";		
 		ResultSet res = null;
+		
 		try 
 		{
+			stmt = conn.createStatement();
 			res =  stmt.executeQuery(sqlString);
 			if(res.first())
 			{
@@ -64,7 +70,6 @@ public class DatabaseController
 				DatabaseController.activeUser.email = email;
 				DatabaseController.activeUser.user_id = Integer.parseInt(res.getString("user_id"));
 				System.out.println("Objekt erfolgreich zusammengestellt!");
-				
 			}
 		} 
 		catch (SQLException e) 
@@ -82,15 +87,14 @@ public class DatabaseController
 		        stmt.close();
 		    }
 		  }
-		
 	}
 	public boolean checkEmailAndPassword(String email,String password_) throws SQLException 
 	{
-		stmt = conn.createStatement();
 		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";
 		ResultSet res = null;
 		try
 		{
+			stmt = conn.createStatement();
 			res = stmt.executeQuery(sqlString);
 			if(!res.first())
 			{
@@ -125,11 +129,11 @@ public class DatabaseController
 	
 	public boolean isEmailAlreadyinUse(String email) throws SQLException
 	{
-		stmt = conn.createStatement();
 		ResultSet res =null;
 		String sqlString = "select email from users where email = '"+ email +"';";		
 		try
 		{
+			stmt = conn.createStatement();
 			res = stmt.executeQuery(sqlString);
 			if(res.first())
 			{			
@@ -169,13 +173,13 @@ public class DatabaseController
 	*/
 	public ResultSet selectEventsWithFilter(String filter) throws SQLException
 	{
-		stmt = conn.createStatement();
 		String query = "SELECT * FROM event WHERE event.user_id ="+DatabaseController.activeUser.user_id+" AND (title LIKE '%"+filter+"%' OR description LIKE '%"+filter+"%' OR ort LIKE '%"+filter+"%' OR category LIKE'%"+filter+"%');" ;		                
 		ResultSet res = null;
 		
 		//Antonio Nunziata
 		try
-		{		    
+		{
+			stmt = conn.createStatement();
 			res = stmt.executeQuery(query);
 			return res;
 		}
@@ -205,12 +209,14 @@ public class DatabaseController
 	* @param event_id Der Primary Key des des Termins
 	* 
 	* @return Ein bool der aussagt, ob das Löschen erfolgreich war
+	 * @throws SQLException 
 	*/
-	public boolean deleteEvent(int event_id)
+	public boolean deleteEvent(int event_id) throws SQLException
 	{
 		//Antonio Nunziata
 		try
 		{
+			stmt = conn.createStatement();
 			String query = "DELETE FROM event WHERE event_id="+event_id+";";
 			stmt.execute(query);
 			return true;
@@ -219,6 +225,13 @@ public class DatabaseController
 		{
 			System.out.println("Failed deleting event");
 			return false;
+		}
+		finally
+		{
+			if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
 		}
 	}
 	/**
@@ -231,18 +244,23 @@ public class DatabaseController
 	* @param event_id Der Primary Key eines Keys, mit dem der zugehörige Termin selektiert wird
 	* 
 	* @return Ein String bestehend aus den Werten der Attribute des selektierten Termins
+	 * @throws SQLException 
 	*/
-	public String selectEvent(int event_id)
+	public String selectEvent(int event_id) throws SQLException
 	{
 		//Antonio Nunziata
 		/*Mithilfe des übergebenen Terminschlüssel (event_id) sollen zugehörige Daten eines Termins selektiert werden
 		 * Diese werden zu einem einzigen String zusammengesetzt und als Rückgabewert gesendet.
 		 * Die einzelnen Werte werden voneinander mit dem Seperator ';' getrennt.
 		 * Später kann eine Funktion diese auswerten und einzelne Strings daraus produzieren*/
+		
+		String query = "SELECT title, description, place,event_begin,event_end,full_day,category FROM event WHERE event.event_id ="+event_id+";";			
+		ResultSet res = null;
+		
 		try
-		{		    
-			String query = "SELECT title, description, place,event_begin,event_end,full_day,category FROM event WHERE event.event_id ="+event_id+";";			
-			ResultSet res = stmt.executeQuery(query);
+		{
+			stmt = conn.createStatement();
+			res = stmt.executeQuery(query);
 			
 			if(res.first())
 			{
@@ -262,6 +280,16 @@ public class DatabaseController
 			System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
 			return null;
 		}
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		}
 	}
 	/**
 	* Das Selektieren/Erhalten aller Termine des angemeldeten Benutzers um diese grafisch darstellen zu können
@@ -273,17 +301,18 @@ public class DatabaseController
 	* 
 	* 
 	* @return Eine Liste bestehend allen Terminen des eingeloggten Benutzers
+	 * @throws SQLException 
 	*/
-	public ArrayList<Event> selectEvents()
+	public ArrayList<Event> selectEvents() throws SQLException
 	{
 		//Antonio Nunziata
+		String query = "SELECT * FROM event WHERE user_id ="+DatabaseController.activeUser.user_id+";";		
+		ResultSet res = null;
+		
 		try
 		{
 			stmt = conn.createStatement();
-			String query = "SELECT * FROM event WHERE user_id ="+DatabaseController.activeUser.user_id+";";		
-			
-			ResultSet res = stmt.executeQuery(query);
-			
+			res = stmt.executeQuery(query);
 			ArrayList<Event> events = new ArrayList<Event>();
 			
 			//Aus den selektierten Daten ein Event-Objekt bauen und der Event-Liste hinzufügen
@@ -312,6 +341,16 @@ public class DatabaseController
 			System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
 			return null;
 		}
+		finally 
+		{
+		    if (res != null) {
+		    	res.close();
+		    }
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		}
 	}
 	/**
 	* Das Schreiben eines Termins in die Datenbank
@@ -323,13 +362,16 @@ public class DatabaseController
 	* @param e Das Termin-Objekt mit das in die Datenbank geschrieben werden soll
 	* 
 	* @return Ein bool der aussagt, ob das Einfügen erfolgreich war oder nicht
+	 * @throws SQLException 
 	*/
-	public boolean insertEvent(Event e)
+	public boolean insertEvent(Event e) throws SQLException
 	{
 		//Antonio Nunziata
+		String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category,user_id) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"',"+e.user_id+");";
+		
 		try
-		{			
-			String query = "INSERT INTO event (title,description,place,event_begin,event_end,full_day,category,user_id) VALUES('"+e.title+"','"+e.description+"','"+e.place+"','"+e.event_begin+"','"+e.event_end+"',"+e.full_day+",'"+e.category+"',"+e.user_id+");";
+		{
+			stmt = conn.createStatement();
 			stmt.execute(query);
 			System.out.println("Inserting was successfully");
 			return true;
@@ -338,6 +380,13 @@ public class DatabaseController
 		{ 
 			System.out.println("Failed inserting event");
 			return false;
+		}
+		finally 
+		{
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
 		}
 	}
 	/**
@@ -350,12 +399,15 @@ public class DatabaseController
 	* @param e Das Termin-Objekt mit neuen/veränderten Daten
 	* 
 	* @return Ein bool der aussagt, ob das UPDATE erfolgreich war oder nicht
+	 * @throws SQLException 
 	*/
-	public boolean updateEvent(Event e)
-	{			 
+	public boolean updateEvent(Event e) throws SQLException
+	{
+		String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+e.event_begin+"',event_end='"+e.event_end+"' WHERE event_id="+e.event_id+";";
+		
 		try
 		{
-			String query = "UPDATE event SET title='"+e.title+"',description='"+e.description+"',place='"+e.place+"',full_day="+e.full_day+",category='"+e.category+"',event_begin='"+e.event_begin+"',event_end='"+e.event_end+"' WHERE event_id="+e.event_id+";";
+			stmt = conn.createStatement();
 			stmt.execute(query);
 			return true;
 			
@@ -365,18 +417,29 @@ public class DatabaseController
 			System.out.println("Failed updating event");
 			return false;
 		}
+		finally 
+		{
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		}
 	}
-	public boolean RegisterUser(User u)
+	public boolean RegisterUser(User u) throws SQLException
 	{
 		//Alessandro Stuckenschnieder
+		
+		ResultSet res = null;
+		
 		try
-		{		
-			int address_id;			
+		{
+			stmt = conn.createStatement();
+			int address_id;	
 			String sqlString = "INSERT INTO address (street,street_nr,postcode,city) VALUES('"+u.adress.street+"','"+u.adress.street_nr+"',"+u.adress.postcode+",'"+u.adress.city+"');";
 			System.out.println("address created..." + String.valueOf(stmt.executeUpdate(sqlString)));
 			sqlString = "select address_id from address where street = "+"'"+u.adress.street+"' and street_nr = '"+u.adress.street_nr+ "' and postcode = "+u.adress.postcode+" and city = '"+u.adress.city+"';";
 			System.out.println(sqlString);
-			ResultSet res = stmt.executeQuery(sqlString);
+			res = stmt.executeQuery(sqlString);
 			if(res.next())
 			{
 				address_id = res.getInt(1);
@@ -395,16 +458,25 @@ public class DatabaseController
 		catch(Exception ex)
 		{	System.out.println(ex);
 			return false;
-		}	
+		}
+		finally 
+		{
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		}
 	}
 
 	public String getFullUsernameByEmail(String email) throws SQLException
 	{
+		String query = "select first_name,last_name from users where email = '"+email+"'";
+		ResultSet res = null;
 		try
 		{
 			conn.setCatalog(database);
 			stmt = conn.createStatement();
-			ResultSet res = stmt.executeQuery("select first_name,last_name from users where email = '"+email+"';");
+			res = stmt.executeQuery(query);
 			res.next();
 			
 			return String.format("%s %s", res.getString(1), res.getString(2));
@@ -413,13 +485,20 @@ public class DatabaseController
 		{
 			
 		}
+		finally 
+		{
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
+		}
 		
 		return "";
 	}
 	
 	
 	/*Database Loading and Init */
-	public void LoadDatabase() {
+	public void LoadDatabase() throws SQLException {
 		LoadDriver();
 		
 		try {
@@ -454,6 +533,13 @@ public class DatabaseController
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		finally 
+		{
+		    if (stmt != null) 
+		    {
+		        stmt.close();
+		    }
 		}
 	}
 

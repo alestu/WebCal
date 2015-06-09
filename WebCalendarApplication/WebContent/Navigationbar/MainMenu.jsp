@@ -75,6 +75,78 @@ else {
 	
 <link rel="stylesheet" type="text/css" href="../fullcalendar/fullcalendar.css"/>
 <link rel="stylesheet" type="text/css" href="../fullcalendar/modifiedcalendar.css"/>
+
+
+<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
+<script type="text/javascript" src="../bootstrap/js/EventValidation.js"></script>
+
+<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
+
+<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
+<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
+<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
+
+<script>
+$(document).ready(function(){
+<%
+	//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
+	Event[] events = controller.selectEvents().toArray(new Event[0]);
+	int i = 0;
+	
+	%>var events = [];<%
+	for(i = 0; i < events.length; i++)
+	{
+		%>var event = {
+				id: <%=events[i].event_id%>,
+				title: "<%=events[i].title%>",
+				fullDay: <%=events[i].full_day%>,
+				start: "<%=events[i].event_begin%>",
+				end: "<%=events[i].event_end%>",
+				description: "<%=events[i].description%>"
+		};<%i = i + 1;%>
+		
+		events.push(event);<%
+	}
+%>
+	
+	$("#calendar").fullCalendar("addEventSource", events);
+	
+	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
+	/*$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
+	{
+		eventID:1, //EventID eritteln
+	}).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
+     	{
+      		alert("callback");
+       	$('#myModal').modal('show');
+       	var strArr = data.split(';');
+       	//String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
+        $("#txtEventTitle").val(strArr[0]);
+       	//Beschreibung hinzufügen
+        $("#txtEventPlace").val(strArr[2]);
+       	
+       	//Das Datum und die Zeit sind als ein String zusammengepackt
+       	//Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
+       	//dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen
+       	var beginDatetime = strArr[3].split(" ");
+       	$("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
+       	//$("#txtEventBeginTime").clockpicker()
+       	 alert(strArr[3]);
+       	var endDatetime = strArr[4].split(" ");
+       	$("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
+       	//Fullday ...
+       	alert(strArr[5]);
+       	$("#kategorie".val(strArr[5]));
+   	});*/
+});
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -257,72 +329,4 @@ else {
 	
 	<div id="calendar"></div>
 </body>
-
-<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/clockpicker.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.de.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="../bootstrap/js/TimeAndDate.js"></script>
-<script type="text/javascript" src="../bootstrap/js/EventValidation.js"></script>
-
-<script type="text/javascript" src="../bootstrap/js/termin.js"></script>
-
-<script type="text/javascript" src="../fullcalendar/lib/moment.min.js"></script>
-<script type="text/javascript" src="../fullcalendar/fullcalendar.js"></script>
-<script type="text/javascript" src="../fullcalendar/lang-all.js"></script>
-<script type="text/javascript" src="../fullcalendar/modifiedcalendar.js"></script>
-
-<script>
-$(document).ready(function()
-{
-	<%
-		//Calendar braucht folgende Event-Daten: id, title, fullDay, start, end, description
-		Event[] events = controller.selectEvents().toArray(new Event[0]);
-		int i = 0;
-		System.out.println("var events[];");
-		for(i = 0; i < events.length; i++)
-		{
-			%>
-			events.push({
-					"id": "<%=events[i].event_id%>",
-					"title": "<%=events[i].title%>",
-					"fullDay": "<%=events[i].full_day%>",
-					"start": "<%=events[i].event_begin%>",
-					"end": "<%=events[i].event_end%>",
-					"description": "<%=events[i].description%>"
-			});<%
-		}
-	%>
-	
-	//Mithilfe von Ajax sollen Daten gelesen und angezeigt werden, ohne einen PageLoad auszuführen	
-	$.post("http://localhost:8080/WebCalendarApplication/EditEvent",
-	{
-		eventID:1, //EventID eritteln
-	}).done(function( data ) //Nachdem der Call fertig ist, wird die Maske geöffnet und mit Daten gefüllt
-     	{
-      		alert("callback");
-       	$('#myModal').modal('show');
-       	var strArr = data.split(';');
-       	//String splitten und einen String-Array für das Füllen der einzelnen Steuerelemente verwenden.
-        $("#txtEventTitle").val(strArr[0]);
-       	//Beschreibung hinzufügen
-        $("#txtEventPlace").val(strArr[2]);
-       	
-       	/*Das Datum und die Zeit sind als ein String zusammengepackt
-       	  Die beiden Werte sind mit einem ' ' voneinander getrennt und werden
-       	  dementsprechend gesplittet um die einzelnen beiden Steuerelemente damit zu befüllen*/
-       	var beginDatetime = strArr[3].split(" ");
-       	$("#txtEventBeginDate").datepicker("setDate",beginDateTime[0]);
-       	//$("#txtEventBeginTime").clockpicker()
-       	 alert(strArr[3]);
-       	var endDatetime = strArr[4].split(" ");
-       	$("#txtEventEndDate").datepicker("setDate",endDatetime[0]);
-       	//Fullday ...
-       	alert(strArr[5]);
-       	$("#kategorie".val(strArr[5]));
-   	});
-});
-</script>
 </html>

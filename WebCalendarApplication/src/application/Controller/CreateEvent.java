@@ -2,6 +2,7 @@ package application.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,7 +85,12 @@ public class CreateEvent extends HttpServlet {
 			
 		System.out.println("Writing event in database ...");
 		DatabaseController controller = new DatabaseController();
-		controller.insertEvent(e); //Datenobjekt übergeben
+		try {
+			controller.insertEvent(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} //Datenobjekt übergeben
 		
 		response.sendRedirect("Navigationbar/MainMenu.jsp");
 	}
