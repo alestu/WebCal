@@ -219,8 +219,7 @@ $(document).ready(function(){
 										<label for="begindate" class="control-label">Startzeitpunkt</label>
 										<div id="multidivcontainer">
 											<div class="input-group date begindate" id="datetimepicker2">
-
-												<input readonly type="text" class="form-control" name="startdatum"/> <span
+												<input readonly type="text" class="form-control" name="startdate"/> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -244,7 +243,7 @@ $(document).ready(function(){
 											<div class="starttime input-group clockpicker "
 												data-autoclose="true">
 												<input readonly type="text" class="form-control "
-													value="13:00" name="endzeit"><span class="input-group-addon">
+													value="13:00" name="endtime"><span class="input-group-addon">
 													<span class="glyphicon glyphicon-time"></span>
 												</span>
 											</div>

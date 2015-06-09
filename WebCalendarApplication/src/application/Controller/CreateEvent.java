@@ -70,8 +70,8 @@ public class CreateEvent extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		//Termin Objekt zusammenbauen
-		String start = request.getParameter("startdatum")+" "+request.getParameter("starttime");
-		String ende = request.getParameter("enddate")+" "+request.getParameter("endzeit");
+		String start = request.getParameter("startdate")+" "+request.getParameter("starttime");
+		String ende = request.getParameter("enddate")+" "+request.getParameter("endtime");
 		
 		Event e = new Event();		
 		e.title = request.getParameter("title");
