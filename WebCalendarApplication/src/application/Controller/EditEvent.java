@@ -26,6 +26,16 @@ public class EditEvent extends HttpServlet
 		
 	       
 	}
+	/**
+	* Das Erhalten von Daten eines Events zum bearbeiten
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* 
+	 * @throws SQLException 
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		System.out.println("Editiere...");

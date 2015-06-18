@@ -27,7 +27,14 @@ public class RegisterAccount extends HttpServlet {
         super();
       
     }
-
+    /**
+	* Das Erstellen/Registrieren eines Accounts eines Besuchers
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");

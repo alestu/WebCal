@@ -88,6 +88,20 @@ public class DatabaseController
 		    }
 		  }
 	}
+	
+	/**
+	* Überprüft das Passwort und die E-Mail Adresse
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	* @param email Die Email des Users
+	* @param password_ Das Passwort des Users
+	* 
+	* @return Ein bool der aussagt, ob die Daten übereinstimmen
+	 * @throws SQLException 
+	*/
 	public boolean checkEmailAndPassword(String email,String password_) throws SQLException 
 	{
 		String sqlString = "select password_ from users where email = '"+ email +"' and password_ = '"+password_+"';";
@@ -127,7 +141,19 @@ public class DatabaseController
 		return false;
 	}
 	
-	public boolean isEmailAlreadyinUse(String email) throws SQLException
+	/**
+	* Überprüft ob die E-Mail Adresse bereits vorhanden ist
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	* @param email Die Email des Users
+	* 
+	* @return Ein bool der aussagt, ob die E-Mail bereits vorhanden ist
+	 * @throws SQLException 
+	*/
+	public boolean isEmailAlreadyInUse(String email) throws SQLException
 	{
 		ResultSet res =null;
 		String sqlString = "select email from users where email = '"+ email +"';";		
@@ -425,6 +451,18 @@ public class DatabaseController
 		    }
 		}
 	}
+	/**
+	* Das Registrieren eines Benutzers 
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	* @param u Das Benutzer-Objekt mit den eingegebenen Daten
+	* 
+	* @return Ein bool der aussagt, ob das Schreiben erfolgreich war
+	 * @throws SQLException 
+	*/
 	public boolean RegisterUser(User u) throws SQLException
 	{
 		//Alessandro Stuckenschnieder
@@ -467,7 +505,18 @@ public class DatabaseController
 		    }
 		}
 	}
-
+	/**
+	* Das Erhalten des Nutzernamens anhand der Email-Adresse
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	* @param email Die E-Mail Adresse des Nutzers
+	* 
+	* @return Ein bool der aussagt, ob das Löschen erfolgreich war
+	 * @throws SQLException 
+	*/
 	public String getFullUsernameByEmail(String email) throws SQLException
 	{
 		String query = "select first_name,last_name from users where email = '"+email+"'";
@@ -498,6 +547,14 @@ public class DatabaseController
 	
 	
 	/*Database Loading and Init */
+	/**
+	* Lädt und initalisiert die Datenbank
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	*/
 	public void LoadDatabase() throws SQLException {
 		LoadDriver();
 		
@@ -554,7 +611,14 @@ public class DatabaseController
 			System.out.println(ex);
 		}
 	}
-	
+	/**
+	* Stellt die Verbindung zur Datenbank her
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	*/
 	public void ConnectDB() throws SQLException
 	{		
 		try
@@ -581,7 +645,14 @@ public class DatabaseController
 			System.out.println(ex);
 		}
 	}
-
+	/**
+	* Initialisiert die Datenbanktabellen
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	*/
 	public void InitTables(Statement stmt, Connection conn)
 			throws SQLException
 	{
@@ -613,7 +684,17 @@ public class DatabaseController
 			System.out.println(ex);
 		}
 	}
-
+	/**
+	* Führt das Datenbank Skript aus
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	* 
+	* @return Ein bool der aussagt, ob das Ausführen erfolgreich war
+	 * @throws SQLException 
+	*/
 	public boolean executeDBScript(String SqlFile, Statement stmt)
 			throws IOException, SQLException {
 		boolean scriptIsExecuted = false;

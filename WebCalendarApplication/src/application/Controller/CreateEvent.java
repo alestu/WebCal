@@ -34,7 +34,19 @@ public class CreateEvent extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+    /**
+	* Konvertiert Datum und Zeit vom Typ String in ein korrektes Format
+	*
+	* @author Antonio Nunziata
+	*
+	* @version 1.0
+	* 
+	* @param date Das ausgewählte Datum
+	* @param time Die ausgewählte Uhrzeit
+	* 
+	* @return Ein bool der aussagt, ob die Daten übereinstimmen
+	 * @throws SQLException 
+	*/
 	private Calendar GetDateFormat(String date, String time)
     {
     	//Antonio Nunziata
@@ -63,6 +75,14 @@ public class CreateEvent extends HttpServlet {
 		 
 		 return null;
     }
+	/**
+	* Das Erstellen eines Termin-Objekts und Aufrufen der Methode für das Schreiben in die Datenbank
+	*
+	* @author Antonio  Nunziata
+	*
+	* @version 1.0
+	* 
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//Antonio Nunziata

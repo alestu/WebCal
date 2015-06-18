@@ -32,7 +32,14 @@ public class LoginController extends HttpServlet {
         
     }
 
-
+    /**
+	* Führt das Anmelden eines Nutzers aus
+	*
+	* @author Alessandro Stuckenschnieder
+	*
+	* @version 1.0
+	* 
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
